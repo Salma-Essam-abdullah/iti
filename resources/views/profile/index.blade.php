@@ -452,7 +452,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
         <div class="row pt-5">
         @foreach($profile['user']['posts'] as $post)
             <div class="col-4 pb-4">
-                <a href="/p/{{ $post->id }}">
+                <a href="{{route('posts.show' ,$post['id'])}}">
                     <img src="/storage/{{ $post->image }}" class="w-100">
                 </a>
             </div>
