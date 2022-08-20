@@ -18,8 +18,8 @@
 
               <input type="text" class="form-control" name="caption" value="{{ old('caption') }}">
             </div>
-           
-           
+
+
             <div class="mb-3">
               <label  class="form-label">Add Image</label>
 
@@ -30,21 +30,21 @@
                         <strong>{{ $errors->first('image') }}</strong>
                     @endif
             </div>
-           
-            
+
+
             <!-- <div class="mb-3">
               <label class="form-label">User ID</label>
 
 
-              
+
               <input type="text" class="form-control" name="user_id">
             </div>
           -->
-         
-           
-           
-           
-         
+
+
+
+
+
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </div>

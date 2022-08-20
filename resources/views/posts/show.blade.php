@@ -14,47 +14,27 @@
 
             </div>
 
-           
+
 
         </div>
 
 
-      
-
-        
-
-
-
-
-        
-
-
-
-
-
-        
-
-
-
-
-
-        
 
         <div class="pull-right">
 
 
 
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
+ <div class="col-xs-12 col-sm-12 col-md-12">
 
-            
 
-            <img src="/storage/{{ $posts->image }}" >
 
-        </div>
+  <img src="/storage/{{ $post->image }}" style="width: 700px;">
+
+  </div>
 <div class="col-xs-12 col-sm-12 col-md-12">
 
-            <div class="form-group"> {{ $posts['caption'] }} </div></div>
+   <div class="form-group"> {{ $post['caption'] }} </div></div>
 
 
 
