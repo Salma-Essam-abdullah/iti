@@ -1,59 +1,131 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@1&family=Lobster&display=swap" rel="stylesheet">
+
     <title>Document</title>
 <style>
-  .active{
-    background-color: #97a4bc;
+  @import url('//fonts.cdnfonts.com/css/billabong');
+
+body {
+  background: #fafafa;
+}
+
+/* start header */
+
+.navigation {
+  background-color: #ffffff;
+  height: 80px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.0975);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px 50px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.shrink {
+  height: 50px;
+}
+
+.navigation .logo a {
+  position: relative;
+  color: #000000;
+  font-size: 30px;
+  text-decoration: none;
+  font-family: 'Lobster', cursive;
+}
+
+.navigation-search-container {
+  position: relative;
+}
+
+.navigation-search-container input {
+  background-color: #fafafa;
+  padding: 3px 20px;
+  padding-left: 25px;
+  height: 30px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.0975);
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.navigation-search-container .fa-search {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (min-width: 320px) and (max-width: 650px) {
+  /* Navigation */
+  .navigation {
+    padding: 0 20px;
+    margin-bottom: 100px;
+    justify-content: space-between;
   }
+  .navigation-search-container {
+    display: none;
+  }
+  .navigation-icons {
+    display: flex;
+  }
+}
+
+.navigation-icons {
+  display: flex;
+}
+
+.navigation-search-container input:focus {
+  outline: none;
+}
+
+.navigation-search-container input::placeholder {
+  text-align: center;
+}
+
+
+/* end header */
+
 </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-    
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Laravel</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link  " aria-current="page" href="">Home</a>
-              </li>
-          
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Users
-                </a>
-   
-                <ul class="dropdown-menu">
-                  <li>  <a class="dropdown-item {{Route::currentRouteName() == "users.index" ? 'active': "" ; }}" href="{{route('users.index')}}">List</a></li>
-                  <li> <a class="dropdown-item {{Route::currentRouteName() == "users.create" ? 'active': "" ; }}" href="{{route('users.create')}}">New User</a></li>
-                
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Posts
-                </a>
-   
-                <ul class="dropdown-menu">
-                  <li>  <a class="dropdown-item {{Route::currentRouteName() == "posts.index" ? 'active': "" ; }}" >Posts</a></li>
-                  <li> <a class="dropdown-item {{Route::currentRouteName() == "posts.create" ? 'active': "" ; }}" >New Post</a></li>
-                
-                </ul>
-              </li>
-             
-          </div>
-        </div>
-      </nav>
+<div class="navigation">
+  <div class="logo">
+    <a class="no-underline" href="{{route('posts.index')}}">
+      Instagram
+    </a>
+  </div>
+  <div class="navigation-search-container">
+    <input class="search-field" type="text" placeholder="Search">
+  </div>
+<div>
+    <!-- <a href="{{route('posts.create')}}" class="btn btn-secondary" style="font-size:20px"  >
+     Add Posts
+    </a> -->
+    <a href="{{route('profile.index')}}" class="btn btn-secondary" style="font-size:20px"  >
+     Profile
+    </a>
+    </div>
 
+</div>
+<!-- scroll down test--->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

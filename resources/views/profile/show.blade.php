@@ -9,8 +9,8 @@
     <style>
         /*
 
-All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310). 
-        
+All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310).
+
 The 'supports' rule will only run if your browser supports CSS grid.
 
 Flexbox and floats are used as a fallback so that browsers which don't support grid will still recieve a similar layout.
@@ -322,7 +322,7 @@ img {
 
 The following code will only run if your browser supports CSS grid.
 
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling. 
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling.
 
 */
 
@@ -390,12 +390,12 @@ Remove or comment-out the code block below to see how the browser will fall-back
         </style>
 </head>
 <body>
-    
+
 
 <header>
 
 	<div class="container">
-        
+
 
 		<div class="profile">
 
@@ -403,16 +403,36 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
                 <img src="{{Storage::disk('public')->url('/images//'.$profile['image'])}}"  class="img-thumbnail">
 			</div>
-
-
 			<div class="profile-user-settings">
 
 				<h1 class="profile-user-name">{{$profile['user']['username']}}</h1>
-              
-				<a href="{{route('profile.edit' ,$profile['id'])}}" class="btn profile-edit-btn">Edit Profile</a>
+                @auth
+                    @unless(auth()->user()->is($profile['user']))
+                        @if(auth()->user()->isFollowing($profile['user']))
+                            <a href="{{route('follow',$profile['user']['id'])}}" class="btn profile-edit-btn">Follow</a>
+                        @else
+                            <a href="{{route('unfollow',$profile['user']['id'])}}" class="btn profile-edit-btn">Unfollow</a>
+                        @endif
+                    @endunless
+                @endauth
+                @auth
+                    @if(auth()->user()->is($profile['user']))
+                    <a href="{{route('profile.edit' ,$profile['id'])}}" class="btn profile-edit-btn">Edit Profile</a>
                 <a href="{{route('users.edit' ,$profile['user']['id'])}}" class="btn profile-edit-btn">Edit Account</a>
+                    @endif
+                @endauth
+
+                @auth
+                    @if(auth()->user()->is($profile['user']))
+                        <a href="{{route('posts.create')}}" class="btn profile-edit-btn">Add Post</a>
+                    @endif
+                @endauth
                 <br>
-                
+
+
+
+
+
 				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 
 			</div>
@@ -429,20 +449,28 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 			<div class="profile-bio">
 
-               
+
                 <p><span class="profile-real-name">Gender : </span>{{$profile['gender']}}</p>
 				<p><span class="profile-real-name">Bio : </span>{{$profile['bio']}}</p>
                 <p><span class="profile-real-name">Webiste : </span>{{$profile['website']}}</p>
 
 			</div>
 
-              
+
 		</div>
 		<!-- End of profile section -->
 
 	</div>
 	<!-- End of container -->
-
+  <div class="row pt-5">
+        @foreach($profile['user']['posts'] as $post)
+            <div class="col-4 pb-4">
+                <a href="{{route('posts.show' ,$post['id'])}}">
+                    <img src="/storage/{{ $post->image }}" class="w-100">
+                </a>
+            </div>
+            @endforeach
+	</div>
 </header>
 
 

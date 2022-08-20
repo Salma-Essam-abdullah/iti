@@ -9,8 +9,8 @@
     <style>
         /*
 
-All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310). 
-        
+All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310).
+
 The 'supports' rule will only run if your browser supports CSS grid.
 
 Flexbox and floats are used as a fallback so that browsers which don't support grid will still recieve a similar layout.
@@ -47,7 +47,7 @@ img {
     padding: 0 2rem;
 }
 
-.btn {
+/* .btn {
     display: inline-block;
     font: inherit;
     background: none;
@@ -55,7 +55,7 @@ img {
     color: inherit;
     padding: 0;
     cursor: pointer;
-}
+} */
 
 .btn:focus {
     outline: 0.5rem auto #4d90fe;
@@ -322,7 +322,7 @@ img {
 
 The following code will only run if your browser supports CSS grid.
 
-Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling. 
+Remove or comment-out the code block below to see how the browser will fall-back to flexbox & floated styling.
 
 */
 
@@ -390,8 +390,6 @@ Remove or comment-out the code block below to see how the browser will fall-back
         </style>
 </head>
 <body>
-    
-
 <header>
 
 	<div class="container">
@@ -406,19 +404,14 @@ Remove or comment-out the code block below to see how the browser will fall-back
                 @else
              <h1> no image</h1>
                 @endif
-          
+
         </div>
 
 			<div class="profile-user-settings">
 
 				<h1 class="profile-user-name">{{$profile['user']['username']}}</h1>
-              
-				<a href="{{route('profile.edit' ,$profile['id'])}}" class="btn profile-edit-btn">Edit Profile</a>
-                <a href="{{route('users.edit' ,$profile['user']['id'])}}" class="btn profile-edit-btn">Edit Account</a>
+
                 <br>
-                
-
-
 				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 
 			</div>
@@ -435,17 +428,15 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 			<div class="profile-bio">
 
-               
+
                 <p><span class="profile-real-name">Gender : </span>{{$profile['gender']}}</p>
 				<p><span class="profile-real-name">Bio : </span>{{$profile['bio']}}</p>
                 <p><span class="profile-real-name">Webiste : </span>{{$profile['website']}}</p>
 
 			</div>
-
-
                 @endforeach
-          
-       
+
+
     </div>
 		</div>
 		<!-- End of profile section -->

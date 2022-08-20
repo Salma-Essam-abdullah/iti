@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use Intervention\Image\Facades\Image;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Traits\HasFollows;
 
-class PostController extends Controller
+class FollowController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // use HasFollows;
+
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +27,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+    //
     }
 
     /**
@@ -38,25 +36,12 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User $user)
     {
-        $data = request()->validate([
-            'caption' => 'required',
-            'image' => ['required', 'image'],
-        ]);
-
-        $imagePath = request('image')->store('uploads', 'public');
-
-        // $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
-        // $image->save();
-
-        auth()->user()->posts()->create([
-            'caption' => $data['caption'],
-            'image' => $imagePath,
-        ]);
-
-        return redirect()->route('profile.show', auth()->user());
+        auth()->user()->toggleFollow($user);
+        return redirect()->route('profile.show', ['user' => $user->username()]);
     }
+
     /**
      * Display the specified resource.
      *
@@ -65,9 +50,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
-
-        return view('posts.show')->with(['post' => $post]);
+    //
     }
 
     /**

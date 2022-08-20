@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Traits\HasFollows;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,HasFollows;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'username',
         'phone',
-        
+
     ];
 
     /**
@@ -56,4 +57,29 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
+    public function id(): int
+    {
+        return $this->id;
+    }
+    public function name(): string
+    {
+        return $this->name;
+    }
+    public function email(): string
+    {
+        return $this->email;
+    }
+    public function username(): string
+    {
+        return $this->username;
+    }
+    public function phone(): string
+    {
+        return $this->phone;
+    }
+    public function password(): string
+    {
+        return $this->password;
+    }
+
 }

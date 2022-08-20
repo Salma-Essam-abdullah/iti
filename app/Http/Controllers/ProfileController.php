@@ -20,11 +20,11 @@ class ProfileController extends Controller
     public function index()
     {
         $profile = Profile::all();
-        $user= Auth::user();   
-        $input['user_id']=$user->id;
+        $user = Auth::user();
+        $input['user_id'] = $user->id;
         return view('profile.index')->with('profiles', $profile);
-        
-     
+
+
     }
 
     /**
@@ -34,21 +34,20 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        if(Auth::check())
-
-        {
+        if (Auth::check()) {
             $user_id = Auth::user()->id;
             $profile = Profile::where('user_id', $user_id)->get();
-          
-            if($profile->count() > 0 ) {
-    
-                return redirect()->route('profile.index');
-    
-            } else {
+
+            if ($profile->count() > 0) {
+
+                return redirect()->route('profile.show', $profile->first()->id);
+
+            }
+            else {
                 return view('profile.create');
             }
         }
-        
+
     }
 
     /**
@@ -59,22 +58,23 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $input = $request->all();
-   
-        
-        if($request->file('image') != null){
+
+
+        if ($request->file('image') != null) {
             $path = $request->file('image')->store('public/images');
             $input['image'] = basename($path);
         }
-       
-        $user= Auth::user();   
-        $input['user_id']=$user->id;
+
+        $user = Auth::user();
+        $input['user_id'] = $user->id;
         Profile::create($input);
-       
-    
-        return redirect('profile');
-        
+
+        return view('profile.show')->with([
+            'profile' => $user->profile,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -85,7 +85,6 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-      
         $profile = Profile::find($id);
         return view('profile.show')->with(['profile' => $profile]);
     }
@@ -98,10 +97,10 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        $profile = Profile::find($id); 
+        $profile = Profile::find($id);
 
-       
-          return view ('profile.edit')->with(['profiles' => $profile]);
+
+        return view('profile.edit')->with(['profiles' => $profile]);
     }
 
     /**
@@ -113,14 +112,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $profile = Profile::find($id); 
+        $profile = Profile::find($id);
         $data = $request->all();
-        if($request->file('image') != null){
+        if ($request->file('image') != null) {
             $path = $request->file('image')->store('public/images');
             $data['image'] = basename($path);
         }
         $profile->update($data);
-  
+
         return redirect('profile')->with('success', 'profile updated successfully');
     }
 
@@ -132,6 +131,6 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //
     }
 }

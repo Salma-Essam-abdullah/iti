@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-       return view('users.index');
-   
+        return view('users.index');
+
     }
 
     /**
@@ -37,9 +38,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-      
-       
+    {
+
+
     }
 
     /**
@@ -50,7 +51,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $profile = User::find($id);
+        return view('profile.show')->with(['profile' => $profile]);
     }
 
     /**
@@ -61,8 +63,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id); 
-        return view ('user.edit')->with(['users' => $user]);
+        $user = User::find($id);
+        return view('user.edit')->with(['users' => $user]);
     }
 
     /**
@@ -74,11 +76,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id); 
+        $user = User::find($id);
         $data = $request->all();
-       
+
         $user->update($data);
-  
+
         return redirect('profile')->with('success', 'profile updated successfully');
     }
 
@@ -90,15 +92,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+    //
     }
     public function changePassword()
-{
-   return view('change-password');
-}
-
-public function updatePassword(Request $request)
-{
+    {
+        return view('change-password');
+    }
+    public function updatePassword(Request $request)
+    {
         # Validation
         $request->validate([
             'old_password' => 'required',
@@ -107,7 +108,7 @@ public function updatePassword(Request $request)
 
 
         #Match The Old Password
-        if(!Hash::check($request->old_password, auth()->user()->password)){
+        if (!Hash::check($request->old_password, auth()->user()->password)) {
             return back()->with("error", "Old Password Doesn't match!");
         }
 
@@ -118,5 +119,5 @@ public function updatePassword(Request $request)
         ]);
 
         return back()->with("status", "Password changed successfully!");
-}
+    }
 }
