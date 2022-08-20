@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,5 +44,7 @@ Route::get('/change-password', [UserController::class, 'changePassword'])->name(
 Route::post('/change-password', [UserController::class, 'updatePassword'])->name('update-password');
 
 Route::resource('profile', ProfileController::class);
+
+Route::resource('posts', PostController::class);
 
 require __DIR__.'/auth.php';

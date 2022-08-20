@@ -422,11 +422,11 @@ Remove or comment-out the code block below to see how the browser will fall-back
 				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 
 			</div>
-
+           <a href="{{route('posts.create')}}">add post</a>
 			<div class="profile-stats">
 
 				<ul>
-					<li><span class="profile-stat-count">164</span> posts</li>
+					<li><span class="profile-stat-count">{{$profile['user']['posts']->count()}}</span> posts</li>
 					<li><span class="profile-stat-count">188</span> followers</li>
 					<li><span class="profile-stat-count">206</span> following</li>
 				</ul>
@@ -442,10 +442,21 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 			</div>
 
+
                 @endforeach
+          
+       
+    </div>
 		</div>
 		<!-- End of profile section -->
-
+        <div class="row pt-5">
+        @foreach($profile['user']['posts'] as $post)
+            <div class="col-4 pb-4">
+                <a href="/p/{{ $post->id }}">
+                    <img src="/storage/{{ $post->image }}" class="w-100">
+                </a>
+            </div>
+            @endforeach
 	</div>
 	<!-- End of container -->
 
