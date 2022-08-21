@@ -39,7 +39,9 @@ class FollowController extends Controller
     public function store(User $user)
     {
         auth()->user()->toggleFollow($user);
-        return redirect()->route('profile.show', ['user' => $user->username()]);
+//         return redirect()->route('profile.show', ['user' => $user->username()]);
+                return back();
+
     }
 
     /**
