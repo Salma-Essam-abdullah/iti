@@ -82,6 +82,10 @@
                 {{$post['caption']}}
                 </p>
                 <a href="{{ route('posts.show',$post['id']) }}" class="ui-rect ui-bg-cover" ><img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->caption }}"></a>
+                <form action="{{url('save' ,$post->id)}}" method="POST">
+                <input type="submit" class="btn btn-secondary"value="Save"/>
+                </form>
+                
               </div>
               
             </div>

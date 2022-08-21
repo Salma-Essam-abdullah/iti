@@ -431,7 +431,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 			<div class="profile-stats">
 
 				<ul>
-					<li><span class="profile-stat-count">164</span> posts</li>
+                <li><span class="profile-stat-count">{{$profile['user']['posts']->count()}}</span> posts</li>
 					<li><span class="profile-stat-count">188</span> followers</li>
 					<li><span class="profile-stat-count">206</span> following</li>
 				</ul>

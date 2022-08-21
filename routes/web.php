@@ -37,7 +37,14 @@ Route::post('/change-password', [UserController::class , 'updatePassword'])->nam
 
 Route::resource('profile', ProfileController::class);
 
-Route::resource('posts', PostController::class);
+Route::get('posts', [PostController::class , 'index'])->name('posts.index');
+Route::get('posts/create', [PostController::class , 'create'])->name('posts.create');
+Route::post('posts', [PostController::class , 'store'])->name('posts.store');
+Route::get('posts/{id}', [PostController::class , 'show'])->where('id', '[0-9]+')->name('posts.show');
+Route::get('posts/{id}/edit', [PostController::class , 'edit'])->name('posts.edit');
+Route::put('posts/{id}', [PostController::class , 'update'])->name('posts.update');
+Route::delete('posts/{id}', [PostController::class , 'destroy'])->name('posts.destroy');
+Route::post('/save/{id}', [PostController::class , 'save'])->name('posts.save');
 
 Route::get('/follow/{user}', [FollowController::class , 'store'])->name('follow');
 Route::get('/unfollow/{user}', [FollowController::class , 'destroy'])->name('unfollow');

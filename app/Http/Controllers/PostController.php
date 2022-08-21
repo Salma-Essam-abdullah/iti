@@ -118,4 +118,8 @@ class PostController extends Controller
         })->get();
         return view('posts.search')->with(['posts' => $posts]);
     }
+    public function save(Request $request,$id)
+    {
+        return redirect()->back();
+    }
 }
