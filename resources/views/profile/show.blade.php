@@ -400,9 +400,13 @@ Remove or comment-out the code block below to see how the browser will fall-back
                 @auth
                     @unless(auth()->user()->is($profile['user']))
                         @if(auth()->user()->isFollowing($profile['user']))
-                            <a href="{{route('follow',$profile['user']['id'])}}" class="btn profile-edit-btn">Unfollow</a>
+                            <form action="{{route('follow',$profile['user']->id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Unfollow</button>
                         @else
-                            <a href="{{route('follow',$profile['user']['id'])}}" class="btn profile-edit-btn">follow</a>
+                            <form action="{{route('follow',$profile['user']->id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Follow</button>
                         @endif
                     @endunless
                 @endauth
