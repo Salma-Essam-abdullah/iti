@@ -113,7 +113,11 @@ body {
     </a>
   </div>
   <div class="navigation-search-container">
-    <input class="search-field" type="text" placeholder="Search">
+  <form action="{{route('search')}}" method="GET">
+      <input type="text" name="search" placeholder="Search Here">
+      <i class="fa fa-search"></i>
+      <input type="submit" value="Search">
+    </form>
   </div>
 <div>
     <a href="{{route('posts.index')}}" class="btn btn-secondary" style="font-size:20px"  >

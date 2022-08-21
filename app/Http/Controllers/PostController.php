@@ -22,7 +22,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-       
+
         return view('posts.index')->with(['posts' => $posts]);
     }
 
@@ -106,5 +106,14 @@ class PostController extends Controller
     public function destroy($id)
     {
     //
+    }
+    public function search()
+    {
+        $search = request('search');
+        $users = User::where('username', 'like', '%' . $search . '%')->get();
+        $posts = Post::whereHas('user', function ($query) use ($users) {
+            $query->whereIn('id', $users->pluck('id'));
+        })->get();
+        return view('posts.search')->with(['posts' => $posts]);
     }
 }

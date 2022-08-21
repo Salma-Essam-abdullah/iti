@@ -42,4 +42,6 @@ Route::resource('posts', PostController::class);
 Route::get('/follow/{user}', [FollowController::class , 'store'])->name('follow');
 Route::get('/unfollow/{user}', [FollowController::class , 'destroy'])->name('unfollow');
 
+// search
+Route::get('/search', [PostController::class , 'search'])->name('search');
 require __DIR__ . '/auth.php';
