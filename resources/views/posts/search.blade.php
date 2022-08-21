@@ -1,5 +1,4 @@
 @section('title', "Search Result")
-
 @include('layouts.app2')
 @foreach($posts as $post)
 

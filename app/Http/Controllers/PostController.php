@@ -107,10 +107,12 @@ class PostController extends Controller
     {
     //
     }
+    // search with username or name
+
     public function search()
     {
         $search = request('search');
-        $users = User::where('username', 'like', '%' . $search . '%')->get();
+        $users = User::where('username', 'like', '%' . $search . '%')->orWhere('name', 'like', "%{$search}%")->get();
         $posts = Post::whereHas('user', function ($query) use ($users) {
             $query->whereIn('id', $users->pluck('id'));
         })->get();
