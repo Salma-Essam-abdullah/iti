@@ -24,27 +24,27 @@ class Post extends Model
     {
         return $this->hasMany(Image::class);
     }
-    public static function boot()
-    {
-        parent::boot();
+    // public static function boot()
+    // {
+    //     parent::boot();
 
-        self::saving( function($model) {
-            		// Set up a container for any hashtags that get parsed
-        App::singleton('tagqueue', function() {
-            return new \App\TagQueue;
-        });
-            $environment = Environment::createCommonMarkEnvironment();
-            $environment->addInlineParser(new \App\Parsers\HashtagParser());
-            $parser = new DocParser($environment);
-            $htmlRenderer = new HtmlRenderer($environment);
+    //     self::saving( function($model) {
+    //         		// Set up a container for any hashtags that get parsed
+    //     App::singleton('tagqueue', function() {
+    //         return new \App\TagQueue;
+    //     });
+    //         $environment = Environment::createCommonMarkEnvironment();
+    //         $environment->addInlineParser(new \App\Parsers\HashtagParser());
+    //         $parser = new DocParser($environment);
+    //         $htmlRenderer = new HtmlRenderer($environment);
 
-            $text = $parser->parse($model->body);
+    //         $text = $parser->parse($model->body);
 
-            $model->html = $htmlRenderer->renderBlock($text);
-        });
-        self::saved( function($model) {
-            $model->syncTags(app('tagqueue')->getTags());
-        });
-    }
+    //         $model->html = $htmlRenderer->renderBlock($text);
+    //     });
+    //     self::saved( function($model) {
+    //         $model->syncTags(app('tagqueue')->getTags());
+    //     });
+    // }
     
 }

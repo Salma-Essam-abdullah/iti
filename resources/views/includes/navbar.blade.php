@@ -116,11 +116,13 @@ body {
     <input class="search-field" type="text" placeholder="Search">
   </div>
 <div>
-    <!-- <a href="{{route('posts.create')}}" class="btn btn-secondary" style="font-size:20px"  >
-     Add Posts
-    </a> -->
-    <a href="{{route('profile.index')}}" class="btn btn-secondary" style="font-size:20px"  >
+    <a href="{{route('posts.index')}}" class="btn btn-secondary" style="font-size:20px"  >
+     Home
+    </a>
+    <a href="{{route('profile.show',Auth::user())}}" class="btn btn-secondary" style="font-size:20px"  >
+
      Profile
+
     </a>
     </div>
 

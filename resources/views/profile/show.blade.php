@@ -47,15 +47,6 @@ img {
     padding: 0 2rem;
 }
 
-.btn {
-    display: inline-block;
-    font: inherit;
-    background: none;
-    border: none;
-    color: inherit;
-    padding: 0;
-    cursor: pointer;
-}
 
 .btn:focus {
     outline: 0.5rem auto #4d90fe;
@@ -409,9 +400,9 @@ Remove or comment-out the code block below to see how the browser will fall-back
                 @auth
                     @unless(auth()->user()->is($profile['user']))
                         @if(auth()->user()->isFollowing($profile['user']))
-                            <a href="{{route('follow',$profile['user']['id'])}}" class="btn profile-edit-btn">Follow</a>
+                            <a href="{{route('follow',$profile['user']['id'])}}" class="btn profile-edit-btn">Unfollow</a>
                         @else
-                            <a href="{{route('unfollow',$profile['user']['id'])}}" class="btn profile-edit-btn">Unfollow</a>
+                            <a href="{{route('follow',$profile['user']['id'])}}" class="btn profile-edit-btn">follow</a>
                         @endif
                     @endunless
                 @endauth

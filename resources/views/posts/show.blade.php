@@ -39,7 +39,11 @@
 
 
 
-            <a class="btn btn-primary" href="{{ route('profile.index') }}"> Back home</a>
+              <a href="{{route('profile.show',Auth::user())}}" class="btn btn-secondary" style="font-size:20px"  >
+
+back
+
+</a>
 
 
 
