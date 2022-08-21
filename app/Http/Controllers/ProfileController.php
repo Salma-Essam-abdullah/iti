@@ -120,7 +120,7 @@ class ProfileController extends Controller
         }
         $profile->update($data);
 
-        return redirect('profile')->with('success', 'profile updated successfully');
+        return redirect('profile.show')->with('success', 'profile updated successfully');
     }
 
     /**

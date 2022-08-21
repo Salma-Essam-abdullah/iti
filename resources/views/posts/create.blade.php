@@ -22,13 +22,7 @@
 
             <div class="mb-3">
               <label  class="form-label">Add Image</label>
-
-
-
-              <input type="file" class="form-control" name="image" >
-              @if ($errors->has('image'))
-                        <strong>{{ $errors->first('image') }}</strong>
-                    @endif
+             <input type="file" name="images[]" multiple class="form-control" id="image">
             </div>
 
 

@@ -3,7 +3,8 @@
 @foreach($posts as $post)
 
 <div class="card" style="width: 35rem; margin:50px;">
-  <img src="{{ asset('storage/'.$post->image) }}" class="card-img-top" alt="{{ $post->caption }}" >
+  <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
+              
   <div class="card-body">
     <!-- username -->
     <h5 class="card-title">{{ $post->user->username }}</h5>

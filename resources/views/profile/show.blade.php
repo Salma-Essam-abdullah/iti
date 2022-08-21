@@ -392,7 +392,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 			<div class="profile-image">
 
-                <img src="{{Storage::disk('public')->url('/images//'.$profile['image'])}}"  class="img-thumbnail">
+                <img src="{{Storage::disk('public')->url('/images//'.$profile['image'])}}"  >
 			</div>
 			<div class="profile-user-settings">
 
@@ -461,7 +461,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
         @foreach($profile['user']['posts'] as $post)
             <div class="col-4 pb-4">
                 <a href="{{route('posts.show' ,$post['id'])}}">
-                    <img src="/storage/{{ $post->image }}" class="w-100">
+                    <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
                 </a>
             </div>
             @endforeach

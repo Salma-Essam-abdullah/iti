@@ -14,16 +14,28 @@ class Post extends Model
 {
 
     protected $guarded = [];
+    protected $fillable = [
+        'caption',
+        'user_id',
+        'image'
+    ];
     use HasFactory;
     use HasTags;
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    public function image()
+    public function images()
     {
-        return $this->hasMany(Image::class);
+     return $this->hasMany('App\Models\Image', 'post_id');
     }
-   
+    public function likes(){
+        return $this->hasMany('App\Models\Like');
+    }
+
+    public function comments(){
+        return $this->hasMany('App\Models\Comment')->orderBy('id', 'desc');
+    }
     
 }

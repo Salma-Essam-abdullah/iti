@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
+
 use App\Models\Profile;
 use App\Models\save;
+use App\Models\Like;
 use App\Models\User;
-use Intervention\Image\Facades\Image;
+use App\Models\Image;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -23,9 +29,13 @@ class PostController extends Controller
      */
     public function index()
     {
+       
+        $profile = Profile::all();
+        $posts = Post::paginate(8);
+        $image = Image::all();
         $posts = Post::all();
 
-        return view('posts.index')->with(['posts' => $posts]);
+        return view('posts.index')->with(['posts' => $posts])->with('profiles', $profile)->with('images', $image);
     }
 
     /**
@@ -46,22 +56,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request()->validate([
-            'caption' => 'required',
-            'image' => ['required', 'image'],
-        ]);
+      
+        $post =  $request->all();
+        $post = new Post;
+    $post->caption = $request->caption;
+      $post->user_id = Auth::user()->id;
+    $post->save(); 
+      foreach ($request->file('images') as $imagefile) {  
+             $image = new Image;
 
-        $imagePath = request('image')->store('uploads', 'public');
+      $path = $imagefile->store('public/images');
+      $image->url = basename($path);
+      $image->post_id = $post->id;
+      $image->save();
+      }
+  
+      ;
+    
 
-        // $image = Image::make(public_path("storage/{$imagePath}"))->fit(1200, 1200);
-        // $image->save();
+  
+      return redirect('posts')->with('success', 'post has been added');
 
-        auth()->user()->posts()->create([
-            'caption' => $data['caption'],
-            'image' => $imagePath,
-        ]);
-
-        return redirect()->route('profile.show', auth()->user());
+    
     }
     /**
      * Display the specified resource.
@@ -73,7 +89,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
-        return view('posts.show')->with(['post' => $post]);
+        return view('posts.show')->with(['posts' => $post]);
     }
 
     /**
@@ -137,4 +153,106 @@ class PostController extends Controller
         $user =auth()-> user();
       return view('posts.showsaved')->with(['saves' => $saves]);
     } 
+
+    public function like(Request $request){
+        $like_s = $request->like_s;
+        $post_id = $request->post_id;
+        $change_like = 0;
+        $like = DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->first();
+        if(!$like){
+            $new_like = new Like;
+            $new_like->post_id = $post_id;
+            $new_like->user_id = Auth::user()->id;
+            $new_like->like = 1;
+            $new_like->save();
+            $is_like = 1;
+         }
+            elseif($like->like == 1){
+              DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->delete();
+                $is_like = 0;
+            }
+            elseif($like->like == 0){
+                DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->update(['like' => 1]);
+                $is_like = 1;
+                $change_like =1;
+            }
+            $response = array(
+                'is_like' => $is_like,
+                'change_like' => $change_like,
+              
+            );
+            
+
+            return response()->json($response , 200);
+        }
+    
+
+    
+    
+
+
+
+
+    public function dislike(Request $request){
+        $like_s = $request->like_s;
+        $post_id = $request->post_id;
+        
+        $change_dislike = 0;
+        $dislike = DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->first();
+        if(!$dislike){
+            $new_like = new Like();
+            $new_like->post_id = $post_id;
+            $new_like->user_id = Auth::user()->id;
+            $new_like->like = 0;
+            $new_like->save();
+            $is_dislike = 1;
+         }
+            elseif($dislike->like == 0){
+              DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->delete();
+                $is_dislike = 0;
+            }
+            elseif($dislike->like == 1){
+                DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->update(['like' => 0]);
+                $is_dislike = 1;
+                $change_dislike =1;
+            }
+            $response = array(
+                'is_dislike' => $is_dislike,
+                'change_dislike' => $change_dislike,
+              
+            );
+
+
+            
+
+            return response()->json($response , 200);
+
+
+
+        }
+    
+public function saveComment(Request $request, $id)
+    {
+        // $post = Post::find($id);
+        // $post->comments()->create($request->all());
+        // return redirect('/posts')->with('success', 'Comment added successfully');
+
+        $request -> validate([
+            'comment' => 'required'
+        ]);
+        $data = new Comment;
+        $data->user_id=$request->user()->id;
+        $data->post_id=$id;
+        $data->comment=$request->comment;
+
+       
+    
+        $data->save();
+        return redirect()->back()->with('success', 'Comment added successfully');
+    }
+    
+
+
+
+
 }

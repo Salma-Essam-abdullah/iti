@@ -53,4 +53,11 @@ Route::get('/unfollow/{user}', [FollowController::class , 'destroy'])->name('unf
 
 // search
 Route::get('/search', [PostController::class , 'search'])->name('search');
+
+Route::post('/like' , [PostController::class, 'like'])->name('like');
+
+Route::post('/dislike' , [PostController::class, 'dislike'])->name('dislike');
+
+Route::post('/save-comment/{id}', [PostController::class, 'saveComment'])->name('save-comment');
+
 require __DIR__ . '/auth.php';

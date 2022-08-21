@@ -81,5 +81,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->password;
     }
+    public function likes(){
+        return $this->hasMany('App\Models\User');
+        }
 
 }
