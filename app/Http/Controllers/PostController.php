@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Profile;
+use App\Models\save;
 use App\Models\User;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -118,8 +120,21 @@ class PostController extends Controller
         })->get();
         return view('posts.search')->with(['posts' => $posts]);
     }
-    public function save(Request $request,$id)
+    public function save($id)
     {
-        return redirect()->back();
+      $user =auth()-> user();
+      $post = Post:: find($id);
+      $save = new save;
+      $save->username =$user->name;
+      $save->caption =$post->caption;
+      $save->image =$post->image;
+      $save -> save();
+        return redirect()->route('posts.index');
     }
+    public function showsaved()
+    {
+        $saves = save::all();
+        $user =auth()-> user();
+      return view('posts.showsaved')->with(['saves' => $saves]);
+    } 
 }

@@ -64,7 +64,7 @@
     </style>
 </head>
 <body>
-@foreach($posts as $post)
+@foreach($saves as $save)
 <div class="container posts-content">
     <div class="row">
         <div class="col-lg-6">
@@ -73,19 +73,16 @@
                 <div class="media mb-3">
                   <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
                   <div class="media-body ml-3">
-                  {{$post['user']['name']}}
+                  {{$save['username']}}
                  
                   </div>
                 </div>
             
                 <p>
-                {{$post['caption']}}
+                {{$save['caption']}}
                 </p>
-                <a href="{{ route('posts.show',$post['id']) }}"style="width:100%;" ><img src="{{ asset('storage/'.$post->image) }}" alt="{{ $post->caption }}"></a>
-                <form action="{{url('save' ,$post->id)}}" method="POST">
-                    @csrf
-                <input type="submit" class="btn btn-secondary"value="Save"/>
-                </form>
+                <a  ><img src="{{ asset('storage/'.$save->image) }}" alt="{{ $save->caption }}"></a>
+                
                 
               </div>
               
@@ -131,19 +128,5 @@
 
 
 
-    
-       
-        
-        
-       
-        
-       
-    
-     
-    
-  
-     
-   
- 
 
  

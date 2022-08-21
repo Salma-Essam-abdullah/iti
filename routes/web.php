@@ -45,6 +45,8 @@ Route::get('posts/{id}/edit', [PostController::class , 'edit'])->name('posts.edi
 Route::put('posts/{id}', [PostController::class , 'update'])->name('posts.update');
 Route::delete('posts/{id}', [PostController::class , 'destroy'])->name('posts.destroy');
 Route::post('/save/{id}', [PostController::class , 'save'])->name('posts.save');
+Route::get('/showsaved', [PostController::class , 'showsaved'])->name('posts.showsaved');
+
 
 Route::get('/follow/{user}', [FollowController::class , 'store'])->name('follow');
 Route::get('/unfollow/{user}', [FollowController::class , 'destroy'])->name('unfollow');
