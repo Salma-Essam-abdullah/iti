@@ -48,7 +48,7 @@ Route::post('/save/{id}', [PostController::class , 'save'])->name('posts.save');
 Route::get('/showsaved', [PostController::class , 'showsaved'])->name('posts.showsaved');
 
 
-Route::get('/follow/{user}', [FollowController::class , 'store'])->name('follow');
+Route::post('/follow/{user}', [FollowController::class , 'store'])->name('follow');
 Route::get('/unfollow/{user}', [FollowController::class , 'destroy'])->name('unfollow');
 
 // search

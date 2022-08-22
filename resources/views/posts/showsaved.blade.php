@@ -81,7 +81,7 @@
                 <p>
                 {{$save['caption']}}
                 </p>
-                <a  ><img src="{{ asset('storage/'.$save->image) }}" alt="{{ $save->caption }}"></a>
+                <a href="{{ route('posts.show',$save['id']) }}" ><img src="{{ asset('storage/'.$save->image) }}" alt="{{ $save->caption }}"></a>
                 
                 
               </div>
