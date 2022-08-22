@@ -1,4 +1,4 @@
-<h1> Commands to run the project = > </h1>
+<h1> Commands to run the project </h1>
 
 <p>composer require laravel/ui</p>
 <p>composer dump-autoload</p>
