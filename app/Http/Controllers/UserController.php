@@ -77,9 +77,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $data = $request->all();
+        auth()->user()->update([
+            'name'=>$request->name,
+            'phone'=>$request->phone,
+        ]);
+        if(auth()->user()->email != $request->email){
+            auth()->user()->newEmail($request->email);
+        }
 
-        $user->update($data);
+       
 
         return redirect()->route('profile.show', Auth::user())->with('success', 'Account updated successfully');
     }

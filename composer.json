@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "league/commonmark": "^2.3",
+        "protonemedia/laravel-verify-new-email": "^1.6",
         "spatie/laravel-tags": "^4.3"
     },
     "require-dev": {

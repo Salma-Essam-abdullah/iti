@@ -10,10 +10,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\HasFollows;
+use ProtoneMedia\LaravelVerifyNewEmail\MustVerifyNewEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,HasFollows;
+    use HasApiTokens, HasFactory, Notifiable,HasFollows , MustVerifyNewEmail;
 
     /**
      * The attributes that are mass assignable.
