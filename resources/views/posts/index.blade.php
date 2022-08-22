@@ -18,7 +18,7 @@
     background:#eee;
 }
 .posts-content{
-    margin-top:20px;    
+    margin-top:20px;
 }
 .ui-w-40 {
     width: 40px !important;
@@ -71,25 +71,25 @@
             <div class="card mb-4">
               <div class="card-body">
                 <div class="media mb-3">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
+                <img class="d-block ui-w-40 rounded-circle"  src="{{Storage::disk('public')->url('/images//'.$post['user']['profile']['image'])}}"  class="img-thumbnail" width="100" height="100">
                   <div class="media-body ml-3">
                   {{$post['user']['name']}}
-                 
+
                   </div>
                 </div>
-            
+
                 <p>
                 {{$post['caption']}}
                 </p>
 
-               
+
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
                 <form action="{{url('save' ,$post->id)}}" method="POST">
                     @csrf
                 <input type="submit" class="btn btn-secondary"value="Save"/>
                 </form>
-                
+
               </div>
               <div class="card-body">
 
@@ -111,7 +111,7 @@
                 @endphp
                   @endif
                 @php
-      
+
                 if($like['user_id'] == Auth::user()->id)
                 {
                   if($like['like'] == 1)
@@ -124,13 +124,13 @@
                   }
                 }
                 @endphp
-      
+
                @endforeach
                <hr>
                <button  type="button" data-postid ="{{$post['id']}}_l" class="btn {{$like_status}} like" data-like="{{$like_status}}" >Like <i class="fa-solid fa-heart"></i><b><span class="like_count">{{$like_count}}</span></b></button>
                <button type="button"  data-postid ="{{$post['id']}}_d" class="btn {{$dislike_status}} dislike" data-like="{{$dislike_status}}">Dislike <i class="fa-solid fa-heart-crack"></i><b><span class="dislike_count">{{$dislike_count}}</span><b></button>
-               
-        
+
+
             </div>
             <form method="POST" action="{{url('save-comment/'.$post['id'])}}">
                 @csrf
@@ -147,35 +147,35 @@
                 <h5 class="card-header">Comments : <span >{{count($post['comments'])}}</span></h5>
                 <div class="card-body">
                      @if($post['comments'])
-                     
+
                      @foreach($post['comments']->take(3) as $comment)
                      <figure>
                          <blockquote class="blockquote">
-                         
+
                             <img class="d-block ui-w-40 rounded-circle"  src="{{Storage::disk('public')->url('/images//'.$post['user']['profile']['image'])}}"  class="img-thumbnail" width="100" height="100">
-                            
+
                              {{$post['user']['name']}}
                          </blockquote>
                          <figcaption class="blockquote-footer">
-                        
+
                              <h3>{{$comment['comment']}}</h3>
                              <p> Time : {{$comment['created_at']}}</p>
                          </figcaption>
                        </figure>
-                      
+
                      @endforeach
                      @if($post['comments']->count() > 3)
-            
+
                      <a href="{{ route('posts.show',$post['id']) }}"> See More Comments</a>
                       @endif
                      @endif
                      <br>
-                    
-     
-              
+
+
+
             </div>
         </div>
-        
+
             </div>
         </div>
     </div>
@@ -215,19 +215,18 @@
 
 
 
-    
-       
-        
-        
-       
-        
-       
-    
-     
-    
-  
-     
-   
- 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

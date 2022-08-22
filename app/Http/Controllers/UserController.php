@@ -81,7 +81,7 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect('profile')->with('success', 'profile updated successfully');
+        return redirect()->route('profile.show', Auth::user())->with('success', 'Account updated successfully');
     }
 
     /**

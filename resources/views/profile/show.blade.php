@@ -1,4 +1,9 @@
 @include('layouts.app2');
+        @if(Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+            </div>
+        @endif
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -433,7 +438,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 
 
-				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+
 
 			</div>
 

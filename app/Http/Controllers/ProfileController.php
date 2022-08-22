@@ -120,7 +120,7 @@ class ProfileController extends Controller
         }
         $profile->update($data);
 
-        return redirect('profile.show')->with('success', 'profile updated successfully');
+        return redirect()->route('profile.show', Auth::user())->with('success', 'profile updated successfully');
     }
 
     /**
@@ -143,6 +143,6 @@ class ProfileController extends Controller
         $profile = Profile::find($id);
         return view('profile.followers')->with(['profile' => $profile]);
 
-        
+
     }
 }
