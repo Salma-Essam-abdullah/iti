@@ -403,6 +403,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
                             <form action="{{route('follow',$profile['user']->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Unfollow</button>
+                        
                         @else
                             <form action="{{route('follow',$profile['user']->id)}}" method="POST">
                                 @csrf
@@ -436,8 +437,14 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 				<ul>
                 <li><span class="profile-stat-count">{{$profile['user']['posts']->count()}}</span> posts</li>
+                @if( $profile['user']->id == Auth::id() )
 					<li><span class="profile-stat-count">{{$profile['user']->followers()->count()}}</span><a href="{{Route('profile.followers',$profile['id'])}}"> followers</a></li>
 					<li><span class="profile-stat-count">{{$profile['user']->follows->count()}}</span><a href="{{Route('profile.following',$profile['id'])}}">  following</a></li>
+                    @else
+                    <li><span class="profile-stat-count">{{$profile['user']->followers()->count()}}</span> followers</li>
+					<li><span class="profile-stat-count">{{$profile['user']->follows->count()}}</span>  following</li>
+
+                    @endif
 				</ul>
 
 			</div>
