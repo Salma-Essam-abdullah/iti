@@ -4,6 +4,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -62,5 +63,6 @@ Route::post('/save-comment/{id}', [PostController::class, 'saveComment'])->name(
 
 Route::get('/followers/{id}', [ProfileController::class , 'followers'])->name('profile.followers');
 Route::get('/following/{id}', [ProfileController::class , 'following'])->name('profile.following');
+Route::get('/tags/{id}','App\Http\Controllers\TagController@index')->middleware('verified');
 
 require __DIR__ . '/auth.php';

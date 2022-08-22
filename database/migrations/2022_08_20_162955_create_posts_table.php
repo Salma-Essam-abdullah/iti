@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('caption')->nullable();
             $table->timestamps();
             $table->index('user_id');
-            $table->text('html')->nullable()->default(null);
+          
     
         });
     }

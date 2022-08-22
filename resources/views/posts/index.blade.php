@@ -79,7 +79,19 @@
                 </div>
 
                 <p>
-                {{$post['caption']}}
+                <span class="text-muted">
+                                    @php
+                                        $cap =$post['caption'];
+                                        foreach($tags as $tag){
+                                        preg_match_all('/#(\w+)/', $cap, $matches);
+                                        $ncap = str_replace($tag->name,"<a href='/tags/$tag->id '>$tag->name</a>",$cap);
+                                        $cap = $ncap;
+                                        }
+                                        echo"$cap";
+                                    @endphp
+
+
+                                </span>
                 </p>
 
 

@@ -10,8 +10,7 @@ use App\Models\save;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Image;
-
-
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,8 +33,8 @@ class PostController extends Controller
         $posts = Post::paginate(8);
         $image = Image::all();
         $posts = Post::all();
-
-        return view('posts.index')->with(['posts' => $posts])->with('profiles', $profile)->with('images', $image);
+        $tags=Tag::all();
+        return view('posts.index')->with(['posts' => $posts])->with('profiles', $profile)->with('images', $image)->with(['tags'=>$tags]);
     }
 
     /**
@@ -59,9 +58,13 @@ class PostController extends Controller
       
         $post =  $request->all();
         $post = new Post;
+       
     $post->caption = $request->caption;
-      $post->user_id = Auth::user()->id;
-    $post->save(); 
+    $str = $request->input('caption');
+   
+    $post->user_id = Auth::user()->id;
+    $post->save();
+    $idd = DB::table('posts')->value('id'); 
       foreach ($request->file('images') as $imagefile) {  
              $image = new Image;
 
@@ -72,7 +75,29 @@ class PostController extends Controller
       }
   
       ;
-    
+      preg_match_all('/#(\w+)/', $str, $matches);
+
+      foreach ($matches[0] as $hashtag_name) {
+
+
+          $tag = Tag::where('name', '=', $hashtag_name)->first();
+          if ($tag === null) {
+              $tag = new Tag;
+              $tag->name = $hashtag_name;
+              $tag->post_id=$idd;
+             // $post=Post::all();
+              
+              $tag->save();
+              //auth()->user()->posts()->tags()->attach($tag);
+         // } else {
+          //    auth()->user()->posts()->tags()->attach($tag);
+          $post->tags()->attach($tag);
+        } else {
+            $post->tags()->attach($tag);
+          }
+          
+
+      }
 
   
       return redirect('posts')->with('success', 'post has been added');
@@ -88,7 +113,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-
+    
         return view('posts.show')->with(['posts' => $post]);
     }
 

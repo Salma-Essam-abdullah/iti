@@ -37,5 +37,8 @@ class Post extends Model
     public function comments(){
         return $this->hasMany('App\Models\Comment')->orderBy('id', 'desc');
     }
-    
+    public function tags()
+    {
+        return $this->belongsTo(Tag::class,'post_id');
+    }
 }
