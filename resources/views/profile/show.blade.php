@@ -403,7 +403,11 @@ Remove or comment-out the code block below to see how the browser will fall-back
                             <form action="{{route('follow',$profile['user']->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Unfollow</button>
-                        
+                        @elseif ( (auth()->user()->isFollowing($profile['user']) && !$profile['user']->isFollowing(auth()->user())) || (!auth()->user()->isFollowing($profile['user']) && $profile['user']->isFollowing(auth()->user())) )
+                            <form action="{{route('follow',$profile['user']->id)}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Follow Back</button>
+                            </form>
                         @else
                             <form action="{{route('follow',$profile['user']->id)}}" method="POST">
                                 @csrf
