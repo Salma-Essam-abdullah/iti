@@ -1,9 +1,9 @@
 Commands to run the project = >
 
-composer require laravel/ui
-composer dump-autoload
-php artisan storage:link
-php artisan migrate
-npm install
-npm run dev
-php artisan migrate
+<p>composer require laravel/ui</p>
+<p>composer dump-autoload</p>
+<p>php artisan storage:link</p>
+<p>php artisan migrate</p>
+<p>npm install</p>
+<p>npm run dev</p>
+<p>php artisan migrate</p>
