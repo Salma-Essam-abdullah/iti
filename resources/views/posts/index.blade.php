@@ -64,6 +64,8 @@
     </style>
 </head>
 <body>
+@if(auth()->user()->follows()->count() > 0)
+    @foreach(auth()->user()->follows as $follow)
 @foreach($posts as $post)
 <div class="container posts-content">
     <div class="row">
@@ -193,6 +195,14 @@
     </div>
 </div>
 @endforeach
+@endforeach
+@else
+    <div class="card">
+        <div class="card-body">
+            <p>You have no posts</p>
+        </div>
+    </div>
+@endif
 </body>
 </html>
 @endsection
