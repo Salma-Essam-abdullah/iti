@@ -37,4 +37,20 @@ trait HasFollows
     {
         return $this->follows()->where('following_user_id', $user->id())->exists();
     }
+    public function followersList(){
+        return $this->followers->map(function ($user) {
+
+            return $user->name;
+
+        });
+    }
+
+    public function followingList(){
+
+        return $this->follows->map(function ($user) {
+
+            return $user->name;
+
+        });
+    }
 }

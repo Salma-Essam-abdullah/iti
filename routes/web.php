@@ -60,4 +60,7 @@ Route::post('/dislike' , [PostController::class, 'dislike'])->name('dislike');
 
 Route::post('/save-comment/{id}', [PostController::class, 'saveComment'])->name('save-comment');
 
+Route::get('/followers/{id}', [ProfileController::class , 'followers'])->name('profile.followers');
+Route::get('/following/{id}', [ProfileController::class , 'following'])->name('profile.following');
+
 require __DIR__ . '/auth.php';

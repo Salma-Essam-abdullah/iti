@@ -133,4 +133,16 @@ class ProfileController extends Controller
     {
     //
     }
+
+    public function following($id){
+        $profile = Profile::find($id);
+        return view('profile.following')->with(['profile' => $profile]);
+
+    }
+    public function followers($id){
+        $profile = Profile::find($id);
+        return view('profile.followers')->with(['profile' => $profile]);
+
+        
+    }
 }
