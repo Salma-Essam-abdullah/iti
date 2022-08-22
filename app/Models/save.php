@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class save extends Model
 {
     use HasFactory;
+    public function images()
+    {
+        return $this->hasMany(Image::class)->orderBy('created_at', 'DESC');
+    }
 }

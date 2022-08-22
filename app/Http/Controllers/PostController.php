@@ -141,17 +141,19 @@ class PostController extends Controller
       $user =auth()-> user();
       $post = Post:: find($id);
       $save = new save;
+      $image = image::all();
       $save->username =$user->name;
       $save->caption =$post->caption;
-      $save->image =$post->image;
+      $save->image =$image->image;
       $save -> save();
         return redirect()->route('posts.index');
     }
     public function showsaved()
     {
         $saves = save::all();
+        $image = image::all();
         $user =auth()-> user();
-      return view('posts.showsaved')->with(['saves' => $saves]);
+      return view('posts.showsaved')->with(['saves' => $saves])->with(['images' => $image]);
     } 
 
     public function like(Request $request){

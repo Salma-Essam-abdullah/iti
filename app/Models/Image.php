@@ -16,4 +16,8 @@ class Image extends Model
     {
         return $this->belongsTo('App\Models\Post');
     }
+    public function saves()
+    {
+        return $this->belongsTo(save::class);
+    }
 }
