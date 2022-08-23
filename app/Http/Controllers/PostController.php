@@ -10,6 +10,7 @@ use App\Models\save;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\savedimage;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -162,24 +163,41 @@ class PostController extends Controller
         return view('posts.search')->with(['posts' => $posts]);
     }
     public function save($id)
+
     {
-      $user =auth()-> user();
-      $post = Post:: find($id);
-      $save = new save;
-      $image = image::all();
-      $save->username =$user->name;
-      $save->caption =$post->caption;
-      $save->image =$image->image;
-      $save -> save();
+
+        $user = User::find(Auth::user()->id);
+        $post = Post:: find($id);
+        $post->user_id = $user->id;
+        $save = new save;
+        $save->username = $user->username;
+        $save->caption = $post->caption;
+        $save->post_id = $post->id;
+        $save->save();
+$saves = save::all();
+$saves = $saves[0]['id'];
+$images = $post->images[0]['url'];
+$savedd = new savedimage;
+$savedd->url = $images;
+$savedd->save_id = $saves;
+$savedd->save();
         return redirect()->route('posts.index');
     }
     public function showsaved()
+
     {
         $saves = save::all();
-        $image = image::all();
+        $image = savedimage::all();
+        $id = $saves[0]['id'];
+
+        $id2 = $image[0]['save_id'];
+
+        $id3 = $image[0]['id'];
         $user =auth()-> user();
-      return view('posts.showsaved')->with(['saves' => $saves])->with(['images' => $image]);
-    } 
+
+      return view('posts.showsaved')->with(['saves' => $saves])->with(['images' => $image , 'id' => $id ,'id2' => $id2, $id3 => 'id3']);
+
+    }
 
     public function like(Request $request){
         $like_s = $request->like_s;

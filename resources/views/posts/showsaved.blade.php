@@ -81,7 +81,19 @@
                 <p>
                 {{$save['caption']}}
                 </p>
-                <a href="{{ route('posts.show',$save['id']) }}" ><img src="{{ asset('storage/'.$save->image) }}" alt="{{ $save->caption }}"></a>
+                
+
+               
+
+                @if($id == $id2)
+
+                    <a href="{{ route('posts.show',$save['post_id']) }}" ><img src="{{ asset('storage/images/'.$images[$id3]['url']) }}" alt="{{ $save->caption }}"></a>
+
+                @endif
+
+               
+
+                
                 
                 
               </div>

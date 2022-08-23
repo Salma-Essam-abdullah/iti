@@ -41,4 +41,9 @@ class Post extends Model
     {
         return $this->belongsTo(Tag::class,'post_id');
     }
+    public function saves(){
+
+        return $this->hasone('App\Models\save');
+
+    }
 }

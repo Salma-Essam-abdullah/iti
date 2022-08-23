@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('saves', function (Blueprint $table) {
+        Schema::create('savedimages', function (Blueprint $table) {
             $table->id();
 
-            $table->string('caption');
+            $table->string('url');
 
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
-
-            $table->string('username');
+            $table->unsignedBigInteger('save_id');
 
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saves');
+        Schema::dropIfExists('savedimages');
     }
 };
