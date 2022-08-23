@@ -25,28 +25,25 @@
         <td>
         
     
-        <!-- @auth
-                    @unless(auth()->user()->is($profile['user']))
-                    @if(auth()->user()->isFollowing($profile['user']))
-                            <form action="{{route('follow',$profile['user']->id)}}" method="POST">
+        @if(auth()->user()->follows)
+                            <form action="{{route('follow',$following->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger float-end">Unfollow</button>
                         
                         @else
-                            <form action="{{route('follow',$profile['user']->id)}}" method="POST">
+                            <form action="{{route('follow',$following->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-primary float-end">Follow</button>
                         @endif
-                        @endunless
-                        @endauth -->
 
 
      
-                     <h4>{{$following}}</h4>  
+                     <h4>{{$following->name}}</h4> 
+                     @endforeach 
           </td>
       </tr>
-     @endforeach
-      </tr>
+   
+    
     </tbody>
   </table>
     

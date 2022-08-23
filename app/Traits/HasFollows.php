@@ -39,8 +39,9 @@ trait HasFollows
     }
     public function followersList(){
         return $this->followers->map(function ($user) {
-
-            return $user->name;
+            
+            return $user;
+            
 
         });
     }
@@ -49,7 +50,7 @@ trait HasFollows
 
         return $this->follows->map(function ($user) {
 
-            return $user->name;
+            return $user;
 
         });
     }

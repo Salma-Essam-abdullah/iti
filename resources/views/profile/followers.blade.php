@@ -19,31 +19,35 @@
    
     <tbody>
         @foreach($profile['user']->followersList() as $followers )
+        
       <tr>
       
         <td>
         
-<!--     
-                   @auth
-                    @unless(auth()->user()->is($profile['user']))
-                     @if(auth()->user()->isFollowing($profile['user']))
-                            <form action="{{route('follow',$profile['user']->id)}}" method="POST">
+        
+                     
+                         @if(auth()->user()->isFollowing($followers))
+                            <form action="{{route('follow',$followers->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger float-end">Unfollow</button>
                         
-                        @else
-                            <form action="{{route('follow',$profile['user']->id)}}" method="POST">
+                          @else
+                            <form action="{{route('follow',$followers->id)}}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-primary float-end">Follow</button>
-                        @endif
-                        @endunless
-                        @endauth -->
+                          @endif
+                       
+                          <h4>{{$followers->name}}</h4>   
+                          
+     @endforeach      
 
      
-                     <h4>{{$followers}}</h4>  
+                      
           </td>
-      </tr>
-     @endforeach
+          
+      
+    
+    
       </tr>
     </tbody>
   </table>
