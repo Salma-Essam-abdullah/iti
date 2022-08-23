@@ -18,7 +18,7 @@
     background:#eee;
 }
 .posts-content{
-    margin-top:20px;    
+    margin-top:20px;
 }
 .ui-w-40 {
     width: 40px !important;
@@ -65,6 +65,8 @@
 </head>
 <body>
 @foreach($saves as $save)
+@foreach($images as $image)
+@if($image->save_id == $save['id'])
 <div class="container posts-content">
     <div class="row">
         <div class="col-lg-6">
@@ -73,72 +75,30 @@
                 <div class="media mb-3">
                   <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
                   <div class="media-body ml-3">
-                  {{$save['username']}}
-                 
+                    <h6 class="mb-0">{{$save['username']}}</h6>
                   </div>
                 </div>
-            
                 <p>
                 {{$save['caption']}}
                 </p>
-                @for($id3=0 ; $id3< $images->count(); $id3++)
+                <div class="row">
+                    <div class="col-md-3">
+                    <a href="{{ route('posts.show',$save['post_id']) }}" >  <img src="{{'storage/images/'.$image->url}}" class="img-fluid" alt=""></a>
+                    </div>
 
-               
-
-                @if($id == $id2)
-
-                    <a href="{{ route('posts.show',$save['post_id']) }}" ><img src="{{ asset('storage/images/'.$images[$id3]['url']) }}" alt="{{ $save->caption }}"></a>
-
-                @endif
-
-               
-
-                @endfor
-                
-                
               </div>
-              
+
             </div>
         </div>
-        
+
             </div>
         </div>
     </div>
 </div>
+@endif
 @endforeach
+@endforeach
+
 </body>
 </html>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

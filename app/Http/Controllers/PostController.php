@@ -29,13 +29,12 @@ class PostController extends Controller
      */
     public function index()
     {
-       
         $profile = Profile::all();
         $posts = Post::paginate(8);
         $image = Image::all();
         $posts = Post::all();
-        $tags=Tag::all();
-        return view('posts.index')->with(['posts' => $posts])->with('profiles', $profile)->with('images', $image)->with(['tags'=>$tags]);
+        $tags = Tag::all();
+        return view('posts.index')->with(['posts' => $posts])->with('profiles', $profile)->with('images', $image)->with(['tags' => $tags]);
     }
 
     /**
@@ -56,54 +55,55 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-      
-        $post =  $request->all();
+
+        $post = $request->all();
         $post = new Post;
-       
-    $post->caption = $request->caption;
-    $str = $request->input('caption');
-   
-    $post->user_id = Auth::user()->id;
-    $post->save();
-    $idd = DB::table('posts')->value('id'); 
-      foreach ($request->file('images') as $imagefile) {  
-             $image = new Image;
 
-      $path = $imagefile->store('public/images');
-      $image->url = basename($path);
-      $image->post_id = $post->id;
-      $image->save();
-      }
-  
-      ;
-      preg_match_all('/#(\w+)/', $str, $matches);
+        $post->caption = $request->caption;
+        $str = $request->input('caption');
 
-      foreach ($matches[0] as $hashtag_name) {
+        $post->user_id = Auth::user()->id;
+        $post->save();
+        $idd = DB::table('posts')->value('id');
+        foreach ($request->file('images') as $imagefile) {
+            $image = new Image;
+
+            $path = $imagefile->store('public/images');
+            $image->url = basename($path);
+            $image->post_id = $post->id;
+            $image->save();
+        }
+
+        ;
+        preg_match_all('/#(\w+)/', $str, $matches);
+
+        foreach ($matches[0] as $hashtag_name) {
 
 
-          $tag = Tag::where('name', '=', $hashtag_name)->first();
-          if ($tag === null) {
-              $tag = new Tag;
-              $tag->name = $hashtag_name;
-              $tag->post_id=$idd;
-             // $post=Post::all();
-              
-              $tag->save();
-              //auth()->user()->posts()->tags()->attach($tag);
-         // } else {
-          //    auth()->user()->posts()->tags()->attach($tag);
-          $post->tags()->attach($tag);
-        } else {
-            $post->tags()->attach($tag);
-          }
-          
+            $tag = Tag::where('name', '=', $hashtag_name)->first();
+            if ($tag === null) {
+                $tag = new Tag;
+                $tag->name = $hashtag_name;
+                $tag->post_id = $idd;
+                // $post=Post::all();
 
-      }
+                $tag->save();
+                //auth()->user()->posts()->tags()->attach($tag);
+                // } else {
+                //    auth()->user()->posts()->tags()->attach($tag);
+                $post->tags()->attach($tag);
+            }
+            else {
+                $post->tags()->attach($tag);
+            }
 
-  
-      return redirect('posts')->with('success', 'post has been added');
 
-    
+        }
+
+
+        return redirect('posts')->with('success', 'post has been added');
+
+
     }
     /**
      * Display the specified resource.
@@ -114,7 +114,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-    
+
         return view('posts.show')->with(['posts' => $post]);
     }
 
@@ -163,28 +163,26 @@ class PostController extends Controller
         return view('posts.search')->with(['posts' => $posts]);
     }
     public function save($id)
-
     {
 
         $user = User::find(Auth::user()->id);
-        $post = Post:: find($id);
+        $post = Post::find($id);
         $post->user_id = $user->id;
         $save = new save;
         $save->username = $user->username;
         $save->caption = $post->caption;
         $save->post_id = $post->id;
         $save->save();
-$saves = save::all();
-$saves = $saves[0]['id'];
-$images = $post->images[0]['url'];
-$savedd = new savedimage;
-$savedd->url = $images;
-$savedd->save_id = $saves;
-$savedd->save();
+        $saves = save::all();
+        $saves = $saves[0]['id'];
+        $images = $post->images[0]['url'];
+        $savedd = new savedimage;
+        $savedd->url = $images;
+        $savedd->save_id = $saves;
+        $savedd->save();
         return redirect()->route('posts.index');
     }
     public function showsaved()
-
     {
         $saves = save::all();
         $image = savedimage::all();
@@ -193,109 +191,120 @@ $savedd->save();
         $id2 = $image[0]['save_id'];
 
         $id3 = $image[0]['id'];
-        $user =auth()-> user();
+        $user = auth()->user();
 
-      return view('posts.showsaved')->with(['saves' => $saves])->with(['images' => $image , 'id' => $id ,'id2' => $id2, $id3 => 'id3']);
+        return view('posts.showsaved')->with(['saves' => $saves])->with(['images' => $image, 'id' => $id, 'id2' => $id2, $id3 => 'id3']);
 
     }
 
-    public function like(Request $request){
+    public function like(Request $request)
+    {
         $like_s = $request->like_s;
         $post_id = $request->post_id;
         $change_like = 0;
         $like = DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->first();
-        if(!$like){
+        if (!$like) {
             $new_like = new Like;
             $new_like->post_id = $post_id;
             $new_like->user_id = Auth::user()->id;
             $new_like->like = 1;
             $new_like->save();
             $is_like = 1;
-         }
-            elseif($like->like == 1){
-              DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->delete();
-                $is_like = 0;
-            }
-            elseif($like->like == 0){
-                DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->update(['like' => 1]);
-                $is_like = 1;
-                $change_like =1;
-            }
-            $response = array(
-                'is_like' => $is_like,
-                'change_like' => $change_like,
-              
-            );
-            
-
-            return response()->json($response , 200);
         }
-    
+        elseif ($like->like == 1) {
+            DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->delete();
+            $is_like = 0;
+        }
+        elseif ($like->like == 0) {
+            DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->update(['like' => 1]);
+            $is_like = 1;
+            $change_like = 1;
+        }
+        $response = array(
+            'is_like' => $is_like,
+            'change_like' => $change_like,
 
-    
-    
+        );
+
+
+        return response()->json($response, 200);
+    }
 
 
 
 
-    public function dislike(Request $request){
+
+
+
+
+    public function dislike(Request $request)
+    {
         $like_s = $request->like_s;
         $post_id = $request->post_id;
-        
+
         $change_dislike = 0;
         $dislike = DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->first();
-        if(!$dislike){
+        if (!$dislike) {
             $new_like = new Like();
             $new_like->post_id = $post_id;
             $new_like->user_id = Auth::user()->id;
             $new_like->like = 0;
             $new_like->save();
             $is_dislike = 1;
-         }
-            elseif($dislike->like == 0){
-              DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->delete();
-                $is_dislike = 0;
-            }
-            elseif($dislike->like == 1){
-                DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->update(['like' => 0]);
-                $is_dislike = 1;
-                $change_dislike =1;
-            }
-            $response = array(
-                'is_dislike' => $is_dislike,
-                'change_dislike' => $change_dislike,
-              
-            );
-
-
-            
-
-            return response()->json($response , 200);
-
-
-
         }
-    
-public function saveComment(Request $request, $id)
-    {
-        // $post = Post::find($id);
-        // $post->comments()->create($request->all());
-        // return redirect('/posts')->with('success', 'Comment added successfully');
+        elseif ($dislike->like == 0) {
+            DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->delete();
+            $is_dislike = 0;
+        }
+        elseif ($dislike->like == 1) {
+            DB::table('likes')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->update(['like' => 0]);
+            $is_dislike = 1;
+            $change_dislike = 1;
+        }
+        $response = array(
+            'is_dislike' => $is_dislike,
+            'change_dislike' => $change_dislike,
 
-        $request -> validate([
-            'comment' => 'required'
-        ]);
-        $data = new Comment;
-        $data->user_id=$request->user()->id;
-        $data->post_id=$id;
-        $data->comment=$request->comment;
+        );
 
-       
-    
-        $data->save();
-        return redirect()->back()->with('success', 'Comment added successfully');
+
+
+
+        return response()->json($response, 200);
+
+
+
     }
-    
+
+    public function saveComment(Request $request, $id)
+    {
+
+
+
+        $request->validate([
+
+            'comment' => 'required'
+
+        ]);
+
+        $data = new Comment;
+
+
+
+        $data->user_id = $request->user_id;
+
+        $data->username = $request->username;
+        $data->post_id = $id;
+        $data->comment = $request->comment;
+
+
+
+        $data->save();
+
+        return redirect()->back()->with('success', 'Comment added successfully');
+
+    }
+
 
 
 

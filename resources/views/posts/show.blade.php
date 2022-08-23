@@ -8,7 +8,7 @@
             </div>
         @endif
         <div class="col-lg-12 margin-tb">
-        
+
 
         </div>
     </div>
@@ -16,14 +16,14 @@
     <div class="row" style="display: flex;
     align-items: center;
     justify-content: center;">
-      
+
         <div class="col-xs-12 col-sm-12 col-md-12"  style="width: 50%; ">
             <div class="form-group">
                 @foreach ($posts->images as $image)
                 <img class="card-img-top" src="{{Storage::disk('public')->url('/images//'.$image->url)}}" alt="Card image cap">
                 &nbsp;
                 @endforeach
-             
+
             </div>
             <div class="card-body">
 
@@ -45,7 +45,7 @@
                @endphp
                  @endif
                @php
-     
+
                if($like['user_id'] == Auth::user()->id)
                {
                  if($like['like'] == 1)
@@ -58,17 +58,17 @@
                  }
                }
                @endphp
-     
+
               @endforeach
               <hr>
               <button  type="button" data-postid ="{{$posts['id']}}_l" class="btn {{$like_status}} like" data-like="{{$like_status}}" >Like <i class="fa-solid fa-heart"></i><b><span class="like_count">{{$like_count}}</span></b></button>
               <button type="button"  data-postid ="{{$posts['id']}}_d" class="btn {{$dislike_status}} dislike" data-like="{{$dislike_status}}">Dislike <i class="fa-solid fa-heart-crack"></i><b><span class="dislike_count">{{$dislike_count}}</span><b></button>
-              
-       
+
+
            </div>
 
 
-        
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <p> Caption:</p>   {{ $posts['caption'] }}
@@ -77,7 +77,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <br>
-           
+
         </div>
         <br>
         <form method="POST" action="{{url('save-comment/'.$posts['id'])}}">
@@ -104,26 +104,26 @@
                             {{$posts['user']['name']}}
                     </blockquote>
                     <figcaption>
-                       
-                        
+
+
                       <p> Comment:</p> <h3>{{$comment['comment']}}</h3>
                       <p> Time : {{$comment['created_at']}}</p>
-                        
+
                         <hr>
                     </figcaption>
                   </figure>
 
                 @endforeach
-               
+
                 @endif
 
             </div>
         </div>
-      
 
-       
+
+
         </div>
-    
+
 
     </div>
 @endsection

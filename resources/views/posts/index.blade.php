@@ -283,6 +283,24 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <textarea class="form-control" rows="3" name="comment"></textarea>
+                        <div class="form-group">
+
+                        <input type="text" class="form-control" name="user_id"
+
+                        value="{{auth()->user()->id}}" hidden>
+                        <div class="form-group">
+
+                        <input type="text" class="form-control" name="username"
+
+                        value="{{auth()->user()->name}}" hidden>
+
+                    </div>
+
+
+
+
+
+                    </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -298,10 +316,10 @@
                      <figure>
                          <blockquote class="blockquote">
 
-                            <img class="d-block ui-w-40 rounded-circle"  src="{{Storage::disk('public')->url('/images//'.$post['user']['profile']['image'])}}"  class="img-thumbnail" width="100" height="100">
+                    <img class="d-block ui-w-40 rounded-circle"  src="{{Storage::disk('public')->url('/images//'.$post['user']['profile']['image'])}}"  class="img-thumbnail" width="100" height="100">
+                    {{$comment['username']}}
 
-                             {{$post['user']['name']}}
-                         </blockquote>
+                        </blockquote>
                          <figcaption class="blockquote-footer">
 
                              <h3>{{$comment['comment']}}</h3>
@@ -330,49 +348,3 @@
 </body>
 </html>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
