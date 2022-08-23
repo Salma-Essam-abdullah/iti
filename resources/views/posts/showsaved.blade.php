@@ -81,7 +81,7 @@
                 <p>
                 {{$save['caption']}}
                 </p>
-                
+                @for($id3=0 ; $id3< $images->count(); $id3++)
 
                
 
@@ -93,7 +93,7 @@
 
                
 
-                
+                @endfor
                 
                 
               </div>
