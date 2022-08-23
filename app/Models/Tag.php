@@ -11,12 +11,11 @@ class Tag extends Model
     protected $table ='tags';
     protected $fillable=[
         'tag_id',
-        'post_id',
         'created_at',
         'updated_at'
        
     ];
     public function posts()
     {
-        return $this->hasMany(Post::class,'post_id');}
+        return $this->hasMany(Post::class,'tag_id');}
 }

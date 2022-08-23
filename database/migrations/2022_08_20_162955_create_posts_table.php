@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('caption')->nullable();
             $table->timestamps();
             $table->index('user_id');
+            $table->unsignedBigInteger('tag_id')->nullable();
           
     
         });

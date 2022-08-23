@@ -16,6 +16,9 @@ class TagController extends Controller
     {
         $tag = Tag::find($id);
         $posts= $tag->posts;
+  
+
         return view('tags', compact('posts','tag'));
+       
     }
 }

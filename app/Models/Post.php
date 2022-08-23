@@ -39,7 +39,7 @@ class Post extends Model
     }
     public function tags()
     {
-        return $this->belongsTo(Tag::class,'post_id');
+        return $this->belongsTo(Tag::class,'tag_id');
     }
     public function saves(){
 

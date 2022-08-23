@@ -64,7 +64,7 @@ class PostController extends Controller
 
         $post->user_id = Auth::user()->id;
         $post->save();
-        $idd = DB::table('posts')->value('id');
+       
         foreach ($request->file('images') as $imagefile) {
             $image = new Image;
 
@@ -76,28 +76,20 @@ class PostController extends Controller
 
         ;
         preg_match_all('/#(\w+)/', $str, $matches);
-
+   
         foreach ($matches[0] as $hashtag_name) {
-
-
             $tag = Tag::where('name', '=', $hashtag_name)->first();
             if ($tag === null) {
+              
                 $tag = new Tag;
                 $tag->name = $hashtag_name;
-                $tag->post_id = $idd;
-                // $post=Post::all();
-
-                $tag->save();
-                //auth()->user()->posts()->tags()->attach($tag);
-                // } else {
-                //    auth()->user()->posts()->tags()->attach($tag);
-                $post->tags()->attach($tag);
-            }
-            else {
-                $post->tags()->attach($tag);
-            }
-
-
+                $tag->save();    
+         }
+         $inserttag=$tag->id;
+         $post->tag_id= $inserttag;
+         $post->save();
+            
+  
         }
 
 
