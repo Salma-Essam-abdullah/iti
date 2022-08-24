@@ -15,7 +15,7 @@ use ProtoneMedia\LaravelVerifyNewEmail\MustVerifyNewEmail;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable,HasFollows , MustVerifyNewEmail;
+    use HasApiTokens, HasFactory, Notifiable, HasFollows, MustVerifyNewEmail;
 
     /**
      * The attributes that are mass assignable.
@@ -83,15 +83,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->password;
     }
-    public function likes(){
+    public function likes()
+    {
         return $this->hasMany('App\Models\User');
-        }
-    public function comments(){
-       return $this->hasMany(Comment::class,'user_id','id');
-            }
-
-    public function sendEmailVerificationNotification()
-            {
-              $this->notify(new VerifyEmailQueued);
-            }
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class , 'user_id', 'id');
+    }
 }

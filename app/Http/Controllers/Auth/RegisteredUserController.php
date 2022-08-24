@@ -4,15 +4,23 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\RegisteredUserNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rules;
+// use Illuminate\Support\Facades\Notification as FacadesNotification;
+// use Illuminate\Bus\Queueable;
+// use Illuminate\Contracts\Queue\ShouldQueue;
+// use Illuminate\Notifications\Notification;
 
 class RegisteredUserController extends Controller
 {
+
+
     /**
      * Display the registration view.
      *
@@ -35,19 +43,23 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
-            'phone' => ['required'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
             'username' => $request->username,
             'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
+
+        $users = User::where('id', 1)->get();
+        Notification::send($users, new RegisteredUserNotification($users));
+        // FacadesNotification::send($users , new RegisteredUserNotification($user));
 
         event(new Registered($user));
 
