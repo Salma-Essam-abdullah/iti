@@ -135,18 +135,25 @@ class PostController extends Controller
      */
     public function update(StoreBlogPost $request, $id)
     {
-    
-        $post = Post::find($id);
-
-
-       
-
-        $input = $request->all();
-
+    // bas
+    //     $post = Post::find($id);
+    //     $input = $request->all();
+    //     $post->update($input);
         
-        $post->update($input);
-
-
+     $input =  $request->all();
+                $post = Post::find($id); 
+                $post->caption = $request->caption;
+                $post->user_id = Auth::user()->id;
+              
+                foreach ($request->file('images') as $imagefile) {  
+                    $image = new Image;
+                $path = $imagefile->store('public/images');
+                $image->url = basename($path);
+                $image->post_id = $post->id;
+                $image->save();
+                }
+                $post->update($input);
+                
        return redirect('posts') ;
     }
 
