@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBlogPost;
 use App\Models\Post;
 use App\Models\Comment;
 
@@ -118,7 +119,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-    //
+        $post = Post::find($id);
+      
+        return view('posts.edit')->with(['posts'=> $post]);
     }
 
     /**
@@ -128,9 +131,21 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreBlogPost $request, $id)
     {
-    //
+    
+        $post = Post::find($id);
+
+
+       
+
+        $input = $request->all();
+
+        
+        $post->update($input);
+
+
+       return redirect('posts') ;
     }
 
     /**
@@ -139,9 +154,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy($id)
     {
-    //
+        Post::destroy($id);
+        return redirect('posts')->with('flash_message', 'Post deleted!');  
     }
     // search with username or name
 

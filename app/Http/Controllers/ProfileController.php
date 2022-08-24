@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Post;
 use App\Models\Profile;
 
 use Illuminate\Http\Request;
@@ -101,6 +101,7 @@ class ProfileController extends Controller
 
 
         return view('profile.edit')->with(['profiles' => $profile]);
+     
     }
 
     /**
