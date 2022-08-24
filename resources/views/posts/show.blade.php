@@ -87,6 +87,13 @@
                 <div class="form-group">
                     <textarea class="form-control" rows="3" name="comment"></textarea>
                 </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="username"
+                    value="{{auth()->user()->name}}" hidden>
+                    <div class="form-group">
+                    <input type="text" class="form-control" name="user_id"
+                    value="{{auth()->user()->id}}" hidden>
+                    </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Add Comment</button>
@@ -102,7 +109,7 @@
                         <div class="circle" >
                             <img class="d-block ui-w-40 rounded-circle" src="{{Storage::disk('public')->url('/images//'.$posts['user']['profile']['image'])}}" alt="{{$posts['title']}}" class="img-thumbnail" width="50" height="50">
                             </div>
-                            {{$posts['user']['name']}}
+                            {{$comment['username']}}
                     </blockquote>
                     <figcaption>
 

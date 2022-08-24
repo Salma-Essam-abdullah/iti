@@ -283,9 +283,6 @@ class PostController extends Controller
 
     public function saveComment(Request $request, $id)
     {
-
-
-
         $request->validate([
 
             'comment' => 'required'
@@ -293,17 +290,10 @@ class PostController extends Controller
         ]);
 
         $data = new Comment;
-
-
-
         $data->user_id = $request->user_id;
-
         $data->username = $request->username;
         $data->post_id = $id;
         $data->comment = $request->comment;
-
-
-
         $data->save();
 
         return redirect()->back()->with('success', 'Comment added successfully');
