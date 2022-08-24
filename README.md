@@ -9,3 +9,4 @@
 <p>npm install</p>
 <p>npm run dev</p>
 <p>php artisan serve</p>
+<p>php artisan queue:work</p>
