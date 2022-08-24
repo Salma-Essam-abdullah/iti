@@ -162,6 +162,8 @@
                         <input type="text" class="form-control" name="user_id"
                         value="{{auth()->user()->id}}" hidden>
                         </div>
+                  
+
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-success">Add Comment</button>
@@ -303,6 +305,7 @@
 
                     </div>
 
+                 
 
 
 
@@ -314,6 +317,7 @@
                     <button type="submit" class="btn btn-success">Add Comment</button>
                 </div>
             </form>
+            
             <div class="card my-4">
                 <h5 class="card-header">Comments : <span >{{count($post['comments'])}}</span></h5>
                 <div class="card-body">
@@ -323,7 +327,7 @@
                      <figure>
                          <blockquote class="blockquote">
 
-                    <img class="d-block ui-w-40 rounded-circle"  src="{{Storage::disk('public')->url('/images//'.$post['user']['profile']['image'])}}"  class="img-thumbnail" width="100" height="100">
+                    <img class="d-block ui-w-40 rounded-circle"  src="{{Storage::disk('public')->url('/images//'.auth()->user()->profile->image)}}"  class="img-thumbnail" width="100" height="100">
                     {{$comment['username']}}
 
                         </blockquote>

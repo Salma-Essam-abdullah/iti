@@ -35,6 +35,8 @@ class PostController extends Controller
         $image = Image::all();
         $posts = Post::all();
         $tags = Tag::all();
+        
+   
         return view('posts.index')->with(['posts' => $posts])->with('profiles', $profile)->with('images', $image)->with(['tags' => $tags]);
     }
 

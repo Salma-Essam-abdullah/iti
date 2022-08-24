@@ -107,7 +107,7 @@
                 <figure>
                     <blockquote class="blockquote">
                         <div class="circle" >
-                            <img class="d-block ui-w-40 rounded-circle" src="{{Storage::disk('public')->url('/images//'.$posts['user']['profile']['image'])}}" alt="{{$posts['title']}}" class="img-thumbnail" width="50" height="50">
+                            <img class="d-block ui-w-40 rounded-circle" src="{{Storage::disk('public')->url('/images//'.auth()->user()->profile->image)}}" alt="{{$posts['title']}}" class="img-thumbnail" width="50" height="50">
                             </div>
                             {{$comment['username']}}
                     </blockquote>
