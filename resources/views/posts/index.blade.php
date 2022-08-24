@@ -155,6 +155,24 @@
                     <div class="form-group">
                         <textarea class="form-control" rows="3" name="comment"></textarea>
                     </div>
+                    <div class="form-group">
+
+
+
+                        <input type="text" class="form-control" name="username"
+
+
+
+                        value="{{auth()->user()->name}}" hidden>
+                        <div class="form-group">
+
+<input type="text" class="form-control" name="user_id"
+
+value="{{auth()->user()->id}}" hidden>
+
+
+
+</div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-success">Add Comment</button>

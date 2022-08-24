@@ -106,8 +106,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-
-        return view('posts.show')->with(['posts' => $post]);
+        $savedimages = Savedimage::all();
+        return view('posts.show')->with(['posts' => $post])->with('savedimages', $savedimages);
     }
 
     /**
@@ -154,12 +154,14 @@ class PostController extends Controller
         })->get();
         return view('posts.search')->with(['posts' => $posts]);
     }
-    public function save($id)
+    public function save(Request $request, $id)
     {
-
         $user = User::find(Auth::user()->id);
-        $post = Post::find($id);
+        // $post = Post::find($id);
+        $post = Post::find($request->id);
         $post->user_id = $user->id;
+        $user = $post->user;
+        $user = $post->user;
         $save = new save;
         $save->username = $user->username;
         $save->caption = $post->caption;
@@ -173,20 +175,14 @@ class PostController extends Controller
         $savedd->save_id = $saves;
         $savedd->save();
         return redirect()->route('posts.index');
-    }
-    public function showsaved()
+   }
+
+   public function showsaved()
     {
-        $saves = save::all();
-        $image = savedimage::all();
-        $id = $saves[0]['id'];
-
-        $id2 = $image[0]['save_id'];
-
-        $id3 = $image[0]['id'];
-        $user = auth()->user();
-
-        return view('posts.showsaved')->with(['saves' => $saves])->with(['images' => $image, 'id' => $id, 'id2' => $id2, $id3 => 'id3']);
-
+        $saves = Save::all();
+        $posts = Post::all();
+        $savedimages = Savedimage::all();
+        return view('posts.showsaved')->with(['saves' => $saves])->with('savedimages', $savedimages)->with('posts', $posts);
     }
 
     public function like(Request $request)

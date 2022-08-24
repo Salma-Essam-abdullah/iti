@@ -20,6 +20,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12"  style="width: 50%; ">
             <div class="form-group">
                 @foreach ($posts->images as $image)
+                User Name :  {{$posts['user']['name']}}
                 <img class="card-img-top" src="{{Storage::disk('public')->url('/images//'.$image->url)}}" alt="Card image cap">
                 &nbsp;
                 @endforeach

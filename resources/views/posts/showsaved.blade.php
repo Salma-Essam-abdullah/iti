@@ -64,40 +64,44 @@
     </style>
 </head>
 <body>
-@foreach($saves as $save)
-@foreach($images as $image)
-@if($image->save_id == $save['id'])
-<div class="container posts-content">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card mb-4">
-              <div class="card-body">
-                <div class="media mb-3">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
-                  <div class="media-body ml-3">
-                    <h6 class="mb-0">{{$save['username']}}</h6>
-                  </div>
-                </div>
-                <p>
-                {{$save['caption']}}
-                </p>
-                <div class="row">
-                    <div class="col-md-3">
-                    <a href="{{ route('posts.show',$save['post_id']) }}" >  <img src="{{'storage/images/'.$image->url}}" class="img-fluid" alt=""></a>
-                    </div>
 
-              </div>
+  <div style="width: 400px; float:left; height:500px; margin:10px">
+    @foreach($saves as $save)
 
-            </div>
-        </div>
-
-            </div>
-        </div>
+  <div style = "display:inline" class="media mb-3">
+    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
+    <div class="media-body ml-3">
+      <h6 class="mb-0">Caption : {{$save['caption']}}</h6>
+      <h6 class="mb-0">User Name :{{$save['username']}}</h6>
+      <hr>
+      <br>
+      <br>
+      <br>
+      <br>
+      
     </div>
-</div>
-@endif
+  </div>
 @endforeach
-@endforeach
+    </div>
+
+    <div style="width: 100px; float:left; height:100px; margin:10px">
+      @foreach($saves as $save)
+      @foreach($savedimages as $image)
+      @if($image->save_id== $save['id'])  
+           <a href="{{ route('posts.show',$image['id']) }}" >  <img src="{{'storage/images/'.$image->url}}" class="img-fluid" alt=""></a>
+
+           <br>
+           <br>
+           
+           
+      @endif
+      @endforeach
+      @endforeach
+    </div>
+
+
+
+
 
 </body>
 </html>
