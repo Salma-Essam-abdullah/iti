@@ -110,8 +110,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $savedimages = Savedimage::all();
-        return view('posts.show')->with(['posts' => $post])->with('savedimages', $savedimages);
+       
+        return view('posts.show')->with(['posts' => $post]);
     }
 
     /**
