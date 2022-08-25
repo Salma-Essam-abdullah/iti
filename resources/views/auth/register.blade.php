@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            
+
         </x-slot>
 
         <!-- Validation Errors -->
@@ -11,8 +11,8 @@
             @csrf
             <img style=" display: block;
             margin-left: auto;
-            margin-right: auto;" src="https://i.imgur.com/zqpwkLQ.png" />
-           
+            margin-right: auto;" src="log.png" />
+
             <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Name')" />

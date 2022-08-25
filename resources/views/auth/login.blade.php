@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            
+
         </x-slot>
 
         <!-- Session Status -->
@@ -14,7 +14,7 @@
             @csrf
             <img style=" display: block;
             margin-left: auto;
-            margin-right: auto;" src="https://i.imgur.com/zqpwkLQ.png" />
+            margin-right: auto;" src="log.png" />
             <!-- Email Address -->
             <div>
                 <x-label for="email" :value="__('Email')" />
