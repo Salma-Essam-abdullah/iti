@@ -130,9 +130,9 @@ body {
     </a>
     <a href="{{route('posts.showsaved')}}" class="btn btn-secondary" style="font-size:20px"  >
 
-     Saved Posts
-
-    </a>
+      Saved
+ 
+     </a>
     </div>
 
 </div>

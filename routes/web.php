@@ -4,6 +4,7 @@ use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SaveController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,8 +46,13 @@ Route::get('posts/{id}', [PostController::class , 'show'])->where('id', '[0-9]+'
 Route::get('posts/{id}/edit', [PostController::class , 'edit'])->name('posts.edit');
 Route::put('posts/{id}', [PostController::class , 'update'])->name('posts.update');
 Route::delete('posts/{id}', [PostController::class , 'destroy'])->name('posts.destroy');
-Route::post('/save/{id}', [PostController::class , 'save'])->name('posts.save');
-Route::get('/showsaved', [PostController::class , 'showsaved'])->name('posts.showsaved');
+
+Route::get('save-post', [SaveController::class, 'create'])->middleware('verified');
+Route::post('save-post', [SaveController::class, 'store'])->middleware('verified');
+Route::get('save-post2', [SaveController::class, 'create2'])->middleware('verified');
+Route::post('save-post2', [SaveController::class, 'store2'])->middleware('verified');
+
+Route::get('posts/showsaved/', [PostController::class, 'showsaved'])->middleware('verified')->name('posts.showsaved');
 
 
 Route::post('/follow/{user}', [FollowController::class , 'store'])->name('follow');

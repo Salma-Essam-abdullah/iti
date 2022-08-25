@@ -1,5 +1,4 @@
 @extends('layouts.app2')
-
 @section('content')
 @if(session('errormessage'))
 <div class="alert alert-danger">
@@ -65,44 +64,16 @@
 </head>
 <body>
 
-  <div style="width: 400px; float:left; height:500px; margin:10px">
-    @foreach($saves as $save)
+@foreach ($saved as $item)
 
-  <div style = "display:inline" class="media mb-3">
-    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="d-block ui-w-40 rounded-circle" alt="">
-    <div class="media-body ml-3">
-      <h6 class="mb-0">Caption : {{$save['caption']}}</h6>
-      <h6 class="mb-0">User Name :{{$save['username']}}</h6>
-      <hr>
-      <br>
-      <br>
-      <br>
-      <br>
-      
-    </div>
-  </div>
+   @foreach ($item->posts->images as $image )
+  <a href="{{route('posts.show',$item->posts->id)}}"><img class="d-block ui-w-20 "  src="{{Storage::disk('public')->url('/images//'.$image->url)}}"   width="400px" ></a>
+@endforeach  
+
+<h3>Caption:   {{ $item->posts->caption}}</h3>
+<br>
+<br>
 @endforeach
-    </div>
-
-    <div style="width: 100px; float:left; height:100px; margin:10px">
-      @foreach($saves as $save)
-      @foreach($savedimages as $image)
-      @if($image->save_id== $save['id'])  
-           <a href="{{ route('posts.show',$image['id']) }}" >  <img src="{{'storage/images/'.$image->url}}" class="img-fluid" alt=""></a>
-
-           <br>
-           <br>
-           
-           
-      @endif
-      @endforeach
-      @endforeach
-    </div>
-
-
-
-
-
 </body>
 </html>
 @endsection

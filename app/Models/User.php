@@ -59,6 +59,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
+    public function saves()
+    {
+        return $this->hasMany(save::class)->orderBy('created_at', 'DESC');
+    }
     public function id(): int
     {
         return $this->id;
@@ -91,4 +95,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Comment::class , 'user_id', 'id');
     }
+    public function saved_posts()
+            {
+                return $this->belongsToMany(Post::class,'saved_posts','user_id','post_id');
+            }
 }

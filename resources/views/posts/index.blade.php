@@ -81,6 +81,15 @@
                   {{$post['user']['name']}}
 
                   </div>
+                  <form action="{{ url('save-post') }}" method="POST"
+                  enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="userID" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="postID" value="{{ $post->id }}">
+
+                <button class="postLike" type="submit"><i
+                        class="far fa-bookmark"></i></button>
+            </form>
                 </div>
 
                 <p>
@@ -102,10 +111,8 @@
 
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
-                <form action="{{url('save' ,$post->id)}}" method="POST">
-                    @csrf
-                <input type="submit" class="btn btn-secondary"value="Save"/>
-                </form>
+                
+                
 
               </div>
               <div class="card-body">
@@ -221,6 +228,15 @@
                   <div class="media-body ml-3">
                   {{$post['user']['name']}}
                   </div>
+                  <form action="{{ url('save-post') }}" method="POST"
+                  enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="userID" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="postID" value="{{ $post->id }}">
+
+                <button class="postLike" type="submit"><i
+                        class="far fa-bookmark"></i></button>
+            </form>
                 </div>
 
                 <p>
@@ -241,10 +257,7 @@
 
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
-                <form action="{{url('save' ,$post->id)}}" method="POST">
-                    @csrf
-                <input type="submit" class="btn btn-secondary"value="Save"/>
-                </form>
+               
 
               </div>
               <div class="card-body">
@@ -368,6 +381,15 @@
                   <div class="media-body ml-3">
                   {{$post['user']['name']}}
                   </div>
+                  <form action="{{ url('save-post') }}" method="POST"
+                  enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="userID" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="postID" value="{{ $post->id }}">
+
+                <button class="postLike" type="submit"><i
+                        class="far fa-bookmark"></i></button>
+            </form>
                 </div>
 
                 <p>
@@ -388,10 +410,8 @@
 
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
-                <form action="{{url('save' ,$post->id)}}" method="POST">
-                    @csrf
-                <input type="submit" class="btn btn-secondary"value="Save"/>
-                </form>
+              
+
 
               </div>
               <div class="card-body">
