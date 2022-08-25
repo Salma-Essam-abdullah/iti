@@ -7,6 +7,8 @@
 
 
             </div>
+         
+            </form>
             <!-- @foreach($posts as $post)
 
                 <div class="col-sm-12 col-md-6 col-lg-4">
@@ -32,10 +34,7 @@
  
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
-                <form action="{{url('save' ,$post->id)}}" method="POST">
-                    @csrf
-                <input type="submit" class="btn btn-secondary"value="Save"/>
-                </form>
+               
  
               </div>
               <div class="card-body">
