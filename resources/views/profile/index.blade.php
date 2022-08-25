@@ -400,7 +400,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 			<div class="profile-image">
 
               @if($profile['image'])
-              <img src="{{Storage::disk('public')->url('/images//'.$profile['image'])}}"  class="img-thumbnail">
+              <img src="{{Storage::disk('public')->url('/images//'.$profile['image'])}}"  class="img-thumbnail" width="250" height="200">
                 @else
              <h1> no image</h1>
                 @endif

@@ -65,13 +65,15 @@
 <body>
 
 @foreach ($saved as $item)
-
+<div class="card w-50">
+<br>
    @foreach ($item->posts->images as $image )
   <a href="{{route('posts.show',$item->posts->id)}}"><img class="d-block ui-w-20 "  src="{{Storage::disk('public')->url('/images//'.$image->url)}}"   width="400px" ></a>
 @endforeach  
-
+<br>
 <h3>Caption:   {{ $item->posts->caption}}</h3>
 <br>
+</div>
 <br>
 @endforeach
 </body>

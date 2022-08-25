@@ -398,7 +398,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 			<div class="profile-image">
 
-                <img src="{{Storage::disk('public')->url('/images//'.$profile['image'])}}"  >
+                <img src="{{Storage::disk('public')->url('/images//'.$profile['image'])}}" width="250" height="200" >
 			</div>
 			<div class="profile-user-settings">
 
