@@ -304,7 +304,7 @@ img {
     .profile-stat-count {
         display: block;
     }
-   
+
 }
 
 /* Spinner Animation */
@@ -488,28 +488,28 @@ Remove or comment-out the code block below to see how the browser will fall-back
 		</div>
 		<!-- End of profile section -->
 
+        <div class="row pt-5">
+              @foreach($profile['user']['posts'] as $post)
+                  <div class="col-4 pb-4">
+                      <a href="{{route('posts.show' ,$post['id'])}}">
+                          <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
+                      </a>
+                      @if( $profile['user']->id == Auth::id() )
+
+                        <form action="{{ route('posts.destroy',$post['id']) }}" method="Post">
+
+                         @csrf
+                          @method('DELETE')
+                      <a class="btn btn-primary" href="{{ route('posts.edit',$post['id']) }}">Edit</a>
+                        <button type="submit" class="btn btn-danger ">Delete</button>
+                          </form>
+
+                      @endif
+                  </div>
+                  @endforeach
+          </div>
 	</div>
 	<!-- End of container -->
-  <div class="row pt-5">
-        @foreach($profile['user']['posts'] as $post)
-            <div class="col-4 pb-4">
-                <a href="{{route('posts.show' ,$post['id'])}}">
-                    <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
-                </a>
-                @if( $profile['user']->id == Auth::id() )
-                
-                  <form action="{{ route('posts.destroy',$post['id']) }}" method="Post">
-
-                   @csrf
-                    @method('DELETE')
-                <a class="btn btn-primary" href="{{ route('posts.edit',$post['id']) }}">Edit</a>
-                  <button type="submit" class="btn btn-danger ">Delete</button>
-                    </form>
-                
-                @endif
-            </div>
-            @endforeach
-	</div>
 </header>
 
 

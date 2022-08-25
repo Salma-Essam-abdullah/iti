@@ -1,9 +1,14 @@
 @extends('layouts.app2')
 
 @section('content')
-@if(session('errormessage'))
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+@if (session('error'))
 <div class="alert alert-danger">
-  {{session('errormessage')}}
+    {{ session('error') }}
 </div>
 @endif
 <!DOCTYPE html>
@@ -111,8 +116,8 @@
 
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
-                
-                
+
+
 
               </div>
               <div class="card-body">
@@ -215,7 +220,6 @@
 </div>
 @endforeach
 @else
-<h3 style="font-family: 'Kanit', sans-serif;">Your Following List Posts</h3>
 @foreach(auth()->user()->follows as $follow)
 @foreach($follow->posts as $post)
 <div class="container posts-content">
@@ -257,7 +261,7 @@
 
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
-               
+
 
               </div>
               <div class="card-body">
@@ -410,7 +414,7 @@
 
                 <a  href="{{ route('posts.show',$post['id']) }}" >  <img  src="{{Storage::disk('public')->url('/images//'.$post->images[0]->url)}}" alt="{{$post->caption}}" width="100%" height="100%"></a>
             <br>
-              
+
 
 
               </div>

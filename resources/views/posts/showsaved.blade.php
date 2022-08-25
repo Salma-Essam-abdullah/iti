@@ -1,10 +1,17 @@
 @extends('layouts.app2')
 @section('content')
-@if(session('errormessage'))
+@if (session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+
+@endif
+@if (session('error'))
 <div class="alert alert-danger">
-  {{session('errormessage')}}
+    {{ session('error') }}
 </div>
 @endif
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +76,7 @@
 <br>
    @foreach ($item->posts->images as $image )
   <a href="{{route('posts.show',$item->posts->id)}}"><img class="d-block ui-w-20 "  src="{{Storage::disk('public')->url('/images//'.$image->url)}}"   width="400px" ></a>
-@endforeach  
+@endforeach
 <br>
 <h3>Caption:   {{ $item->posts->caption}}</h3>
 <br>

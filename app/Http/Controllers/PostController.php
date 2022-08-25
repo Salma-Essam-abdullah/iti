@@ -36,8 +36,8 @@ class PostController extends Controller
         $image = Image::all();
         $posts = Post::all();
         $tags = Tag::all();
-        
-   
+
+
         return view('posts.index')->with(['posts' => $posts])->with('profiles', $profile)->with('images', $image)->with(['tags' => $tags]);
     }
 
@@ -68,7 +68,7 @@ class PostController extends Controller
 
         $post->user_id = Auth::user()->id;
         $post->save();
-       
+
         foreach ($request->file('images') as $imagefile) {
             $image = new Image;
 
@@ -80,20 +80,20 @@ class PostController extends Controller
 
         ;
         preg_match_all('/#(\w+)/', $str, $matches);
-   
+
         foreach ($matches[0] as $hashtag_name) {
             $tag = Tag::where('name', '=', $hashtag_name)->first();
             if ($tag === null) {
-              
+
                 $tag = new Tag;
                 $tag->name = $hashtag_name;
-                $tag->save();    
+                $tag->save();
          }
          $inserttag=$tag->id;
          $post->tag_id= $inserttag;
          $post->save();
-            
-  
+
+
         }
 
 
@@ -110,7 +110,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-       
+
         return view('posts.show')->with(['posts' => $post]);
     }
 
@@ -123,7 +123,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-      
+
         return view('posts.edit')->with(['posts'=> $post]);
     }
 
@@ -140,13 +140,13 @@ class PostController extends Controller
     //     $post = Post::find($id);
     //     $input = $request->all();
     //     $post->update($input);
-        
+
      $input =  $request->all();
-                $post = Post::find($id); 
+                $post = Post::find($id);
                 $post->caption = $request->caption;
                 $post->user_id = Auth::user()->id;
-              
-                foreach ($request->file('images') as $imagefile) {  
+
+                foreach ($request->file('images') as $imagefile) {
                     $image = new Image;
                 $path = $imagefile->store('public/images');
                 $image->url = basename($path);
@@ -154,7 +154,7 @@ class PostController extends Controller
                 $image->save();
                 }
                 $post->update($input);
-                
+
        return redirect('posts') ;
     }
 
@@ -164,11 +164,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
     public function destroy($id)
     {
         Post::destroy($id);
-        return redirect('posts')->with('flash_message', 'Post deleted!');  
+        return redirect('posts')->with('flash_message', 'Post deleted!');
     }
     // search with username or name
 
@@ -181,7 +181,7 @@ class PostController extends Controller
         })->get();
         return view('posts.search')->with(['posts' => $posts]);
     }
-  
+
 
    public function showsaved(){
     $saved = Saved_post::where('user_id',Auth::id())->get();

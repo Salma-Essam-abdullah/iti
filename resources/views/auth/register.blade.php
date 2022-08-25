@@ -1,9 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
+            
         </x-slot>
 
         <!-- Validation Errors -->
@@ -11,7 +9,12 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
+<h1 class="text-center " style="color: #e55d87;
+	color: -moz-linear-gradient(-45deg, #e55d87 0%, #5fc3e4 100%);
+	color: -webkit-linear-gradient(-45deg, #e55d87 0%, #5fc3e4 100%);
+	color: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e55d87', endColorstr='#5fc3e4', GradientType=1 );
+    font-size:30px; font-weight:bold;">INSTAGRAM</h1>
             <!-- Name -->
             <div>
                 <x-label for="name" :value="__('Name')" />
@@ -23,7 +26,7 @@
                 <x-label for="username" :value="__('User Name')" />
 
                 <x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus />
-            </div> 
+            </div>
             <!-- Email Address -->
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
