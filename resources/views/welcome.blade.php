@@ -138,7 +138,7 @@ header {
     <h1 class="heading"><img src="{{url('logo.jpg')}}" width="200px" class="css-class" alt="alt text"></h1>
 	<img style=" display: block;
 	margin-left: auto;
-	margin-right: auto;" src="https://i.imgur.com/zqpwkLQ.png" />
+	margin-right: auto;" src="{{url('log.png')}}" />
     <div class="smallsep heading"></div>
   </div>
 </header>
